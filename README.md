@@ -1,6 +1,7 @@
 # HashDNA-Art-Engine
 
 
+
                    HashDNA Art Engine v1.0.0
                           2022-10-23
 
@@ -11,8 +12,11 @@
 
 References:
    https://lxdao.io
+   
    https://github.com/HashLips
+   
    https://github.com/cryptopunksnotdead
+   
 
                                                      By LXDAO
 
