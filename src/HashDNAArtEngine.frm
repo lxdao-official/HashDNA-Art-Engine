@@ -831,9 +831,9 @@ Private Sub cmdStart_Click()
             End If
         Next k
         If maxSize > layerConfigurations(layerConfigIndex).typeSize Then maxSize = layerConfigurations(layerConfigIndex).typeSize
-        '
+
         'Prepare for drawing memory bitmaps and previews.
-        '
+
         'If no image size is set, read the size of an element png and use it as the image size.
         If frmSetting.chkResize.Value = Unchecked Then
             GdipLoadImageFromFile StrPtr(layers(0).elements(0).path), Image
@@ -1062,7 +1062,7 @@ End Sub
 
 'Get the layers configuration infomation of a type, including elements,
 Private Function layersSetup(layerConfigIndex As Long) As Boolean
-    Dim i As Long, j As Long, k As Long
+    Dim i As Long, j As Long, k As Long, n As Long, maxWeight As Long, maxWeightIndex As Long
     Dim layersOrder() As String
     Dim typeName As String
     Dim tempName As String
@@ -1082,13 +1082,21 @@ Private Function layersSetup(layerConfigIndex As Long) As Boolean
             If Right(layersOrder(i), 1) = "*" Then layers(k).bypassDNA = True Else layers(k).bypassDNA = False
             layers(k).elements = elements
             layers(k).totalWeight = 0
+            maxWeight = 0
             For j = 0 To UBound(elements)
                 layers(k).totalWeight = layers(k).totalWeight + elements(j).weight
+                If maxWeight < elements(j).weight Then
+                    maxWeight = elements(j).weight
+                    maxWeightIndex = j
+                End If
             Next j
+            n = 0
             For j = 0 To UBound(elements)
-                layers(k).elements(j).usableMax = Int(layerConfigurations(layerConfigIndex).typeSize * elements(j).weight / layers(k).totalWeight) + 1
+                layers(k).elements(j).usableMax = Int(layerConfigurations(layerConfigIndex).typeSize * elements(j).weight / layers(k).totalWeight - 0.09) + 1
+                n = n + layers(k).elements(j).usableMax
                 layers(k).elements(j).usedCount = 0
             Next j
+            If layerConfigurations(layerConfigIndex).typeSize > n Then layers(k).elements(maxWeightIndex).usableMax = layers(k).elements(maxWeightIndex).usableMax + layerConfigurations(layerConfigIndex).typeSize - n
             k = k + 1
         End If
     Next i
@@ -1157,12 +1165,13 @@ End Sub
 'Randomly create a DNA based on the current layers() content
 Private Function createDNA(failedCount As Long) As String
     Dim thisDNA As String
-    Dim i As Long, j As Long
+    Dim i As Long, j As Long, k As Long
     Dim random As Long
     'Get a random DNA
     thisDNA = ""
     ReDim newDNA(UBound(layers))
     For i = 0 To UBound(layers)
+        k = 0
         Do While True
             'number between 0 - totalWeight
             random = Int(Rnd() * layers(i).totalWeight)
@@ -1173,13 +1182,14 @@ Private Function createDNA(failedCount As Long) As String
             Next j
            'When an element is used enough times (the number of NFTs * the weight of the element/total weight), it is no longer used
            'and the element is re-extracted. Unless the number of failures to generate independent DNA is greater than 10000.
-            If layers(i).elements(j).usedCount < layers(i).elements(j).usableMax Or failedCount > Val(frmSetting.txtDnaTryTimes) / 2 Then
+            If layers(i).elements(j).usedCount < layers(i).elements(j).usableMax Or failedCount > Val(frmSetting.txtDnaTryTimes) / 2 Or k > Val(frmSetting.txtDnaTryTimes) / 2 Then
                 If layers(i).bypassDNA = False Then
                     If thisDNA = "" Then thisDNA = layers(i).elements(j).Name Else thisDNA = thisDNA & "-" & layers(i).elements(j).Name
                 End If
                 newDNA(i) = j
                 Exit Do
             End If
+            k = k + 1
         Loop
     Next i
     createDNA = thisDNA

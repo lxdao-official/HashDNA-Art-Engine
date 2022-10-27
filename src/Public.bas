@@ -31,7 +31,7 @@ Public layersDir As String
 Public JB As JsonBag
 Public Const Compiler As String = "HashDNA Art Engine"
 Public Const ENS As String = "HashDNA.eth"
-Public Const WalletAddress As String = "0x0000000000000000000000"
+Public Const WalletAddress As String = "0xD480E91db69F946B5EE5788a52181F3cf0De1B79"
 Public Const Description As String = "This software is for artists, you can easily generate 10k images. It's open source and free." & vbCrLf & vbCrLf & _
                                      "by LXDAO"
 

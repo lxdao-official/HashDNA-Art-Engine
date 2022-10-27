@@ -21,29 +21,16 @@ Begin VB.Form frmAbout
       Default         =   -1  'True
       Height          =   345
       Left            =   6120
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   3120
       Width           =   1140
-   End
-   Begin VB.TextBox txtDonate 
-      Appearance      =   0  'Flat
-      BackColor       =   &H8000000F&
-      BorderStyle     =   0  'None
-      Height          =   735
-      Left            =   240
-      Locked          =   -1  'True
-      MultiLine       =   -1  'True
-      TabIndex        =   5
-      Text            =   "frmAbout.frx":7E6A
-      Top             =   2640
-      Width           =   4815
    End
    Begin VB.PictureBox picIcon 
       AutoSize        =   -1  'True
       ClipControls    =   0   'False
       Height          =   540
       Left            =   240
-      Picture         =   "frmAbout.frx":7E73
+      Picture         =   "frmAbout.frx":7E6A
       ScaleHeight     =   337.12
       ScaleMode       =   0  'User
       ScaleWidth      =   337.12
@@ -59,6 +46,14 @@ Begin VB.Form frmAbout
       Top             =   2640
       Width           =   1140
    End
+   Begin VB.Label lblDonate 
+      ForeColor       =   &H00000000&
+      Height          =   1050
+      Left            =   256
+      TabIndex        =   7
+      Top             =   2640
+      Width           =   5565
+   End
    Begin VB.Label lblWebsite 
       Caption         =   "https://lxdao.io"
       BeginProperty Font 
@@ -73,14 +68,14 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   210
       Left            =   1080
-      TabIndex        =   7
+      TabIndex        =   6
       Top             =   2160
       Width           =   3885
    End
    Begin VB.Image Image1 
       Height          =   2175
       Left            =   5160
-      Picture         =   "frmAbout.frx":FCDD
+      Picture         =   "frmAbout.frx":FCD4
       Stretch         =   -1  'True
       Top             =   120
       Width           =   2205
@@ -132,16 +127,20 @@ Private Sub cmdOK_Click()
 End Sub
 
 Private Sub Command1_Click()
-Clipboard.Clear
-Clipboard.SetText WalletAddress
+    Clipboard.Clear
+    Clipboard.SetText WalletAddress
 End Sub
 
 Private Sub Form_Load()
     Me.Caption = "About " & App.Title
     lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
     lblTitle.Caption = App.Title
-    txtDonate.Text = "Donate" & vbCrLf & vbCrLf & "ENS: " & ENS & vbCrLf & WalletAddress
+    lblDonate.Caption = "Donate" & vbCrLf & vbCrLf & "ENS: " & ENS & vbCrLf & WalletAddress
     lblDescription.Caption = Description
+End Sub
+
+Private Sub Label1_Click()
+
 End Sub
 
 Private Sub lblWebsite_Click()
