@@ -3,8 +3,8 @@ Begin VB.Form frmAbout
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About"
    ClientHeight    =   3840
-   ClientLeft      =   7005
-   ClientTop       =   3990
+   ClientLeft      =   3075
+   ClientTop       =   1530
    ClientWidth     =   7545
    ClipControls    =   0   'False
    Icon            =   "frmAbout.frx":0000
@@ -15,13 +15,15 @@ Begin VB.Form frmAbout
    ScaleMode       =   0  'User
    ScaleWidth      =   7085.146
    ShowInTaskbar   =   0   'False
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdCopyWalletAddress 
       Cancel          =   -1  'True
       Caption         =   "Copy"
       Default         =   -1  'True
       Height          =   345
       Left            =   6120
       TabIndex        =   5
+      Tag             =   "11"
+      ToolTipText     =   "Copy the wallet address"
       Top             =   3120
       Width           =   1140
    End
@@ -43,16 +45,18 @@ Begin VB.Form frmAbout
       Height          =   345
       Left            =   6120
       TabIndex        =   0
+      Tag             =   "1"
       Top             =   2640
       Width           =   1140
    End
    Begin VB.Label lblDonate 
       ForeColor       =   &H00000000&
       Height          =   1050
-      Left            =   256
+      Left            =   255
       TabIndex        =   7
+      Tag             =   "1"
       Top             =   2640
-      Width           =   5565
+      Width           =   5085
    End
    Begin VB.Label lblWebsite 
       Caption         =   "https://lxdao.io"
@@ -72,11 +76,13 @@ Begin VB.Form frmAbout
       Top             =   2160
       Width           =   3885
    End
-   Begin VB.Image Image1 
+   Begin VB.Image imgDonate 
       Height          =   2175
       Left            =   5160
       Picture         =   "frmAbout.frx":FCD4
       Stretch         =   -1  'True
+      Tag             =   "01"
+      ToolTipText     =   "Scan the wallet QR code"
       Top             =   120
       Width           =   2205
    End
@@ -94,11 +100,12 @@ Begin VB.Form frmAbout
       Height          =   930
       Left            =   1080
       TabIndex        =   2
+      Tag             =   "1"
       Top             =   1125
       Width           =   3885
    End
    Begin VB.Label lblTitle 
-      Caption         =   "LXDAO Art Eengine"
+      Caption         =   "HashDNA Art Eengine"
       ForeColor       =   &H00000000&
       Height          =   480
       Left            =   1050
@@ -111,6 +118,7 @@ Begin VB.Form frmAbout
       Height          =   225
       Left            =   1050
       TabIndex        =   4
+      Tag             =   "1"
       Top             =   780
       Width           =   3885
    End
@@ -122,27 +130,28 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub cmdOK_Click()
-  Unload Me
-End Sub
-
-Private Sub Command1_Click()
+Private Sub cmdCopyWalletAddress_Click()
     Clipboard.Clear
     Clipboard.SetText WalletAddress
 End Sub
 
-Private Sub Form_Load()
-    Me.Caption = "About " & App.Title
-    lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
-    lblTitle.Caption = App.Title
-    lblDonate.Caption = "Donate" & vbCrLf & vbCrLf & "ENS: " & ENS & vbCrLf & WalletAddress
-    lblDescription.Caption = Description
+Private Sub cmdOK_Click()
+  Unload Me
 End Sub
 
-Private Sub Label1_Click()
+Private Sub Form_Load()
+    TranslateForm Me
+    Me.Caption = Me.Caption & " " & App.Title
+    lblVersion.Caption = lblVersion.Caption & " " & App.Major & "." & App.Minor & "." & App.Revision
+    lblTitle.Caption = App.Title
+    lblDonate.Caption = lblDonate.Caption & vbCrLf & vbCrLf & "ENS: " & ENS & vbCrLf & WalletAddress
+    'lblDescription.Caption = Description
+End Sub
 
+Private Sub lblDonate_Click()
+    Shell "explorer " & "https://etherscan.io/address/" & WalletAddress
 End Sub
 
 Private Sub lblWebsite_Click()
-    Shell "explorer " & "https://lxdao.io/", vbNormalFocus
+    Shell "explorer " & lblWebsite.Caption, vbNormalFocus
 End Sub

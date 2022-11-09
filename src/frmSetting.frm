@@ -3,8 +3,8 @@ Begin VB.Form frmSetting
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Setting"
    ClientHeight    =   9795
-   ClientLeft      =   3570
-   ClientTop       =   3450
+   ClientLeft      =   1365
+   ClientTop       =   1140
    ClientWidth     =   10665
    Icon            =   "frmSetting.frx":0000
    LinkTopic       =   "Form1"
@@ -17,7 +17,7 @@ Begin VB.Form frmSetting
       Height          =   375
       Index           =   2
       Left            =   2160
-      TabIndex        =   16
+      TabIndex        =   13
       Top             =   8040
       Width           =   1935
    End
@@ -25,7 +25,7 @@ Begin VB.Form frmSetting
       Height          =   375
       Index           =   2
       Left            =   4200
-      TabIndex        =   17
+      TabIndex        =   14
       Top             =   8040
       Width           =   1935
    End
@@ -33,7 +33,8 @@ Begin VB.Form frmSetting
       Caption         =   "Back"
       Height          =   495
       Left            =   9000
-      TabIndex        =   30
+      TabIndex        =   27
+      Tag             =   "1"
       Top             =   9000
       Width           =   1215
    End
@@ -41,22 +42,25 @@ Begin VB.Form frmSetting
       Caption         =   "Load"
       Height          =   495
       Left            =   3960
-      TabIndex        =   27
+      TabIndex        =   25
+      Tag             =   "1"
       Top             =   9000
       Width           =   1215
    End
-   Begin VB.Frame FrameStep3 
+   Begin VB.Frame FrameImageSetting 
       Caption         =   "Image Settings"
       Height          =   8415
       Left            =   6960
-      TabIndex        =   42
+      TabIndex        =   43
+      Tag             =   "1"
       Top             =   360
       Width           =   3255
       Begin VB.TextBox txtDnaTryTimes 
          Alignment       =   2  'Center
          Height          =   375
          Left            =   1680
-         TabIndex        =   26
+         TabIndex        =   23
+         Tag             =   "01"
          Text            =   "20000"
          ToolTipText     =   "Must be a number. After N attempts, if the unique DNA is still not obtained, the attempt is stopped."
          Top             =   4800
@@ -67,7 +71,8 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1680
-         TabIndex        =   25
+         TabIndex        =   22
+         Tag             =   "01"
          Text            =   "FFFFFF"
          ToolTipText     =   "The background color must be a 6-character(RGB) or 8-character(ARGB) hexadecimal without a pre-pended #"
          Top             =   3960
@@ -78,7 +83,8 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1680
-         TabIndex        =   20
+         TabIndex        =   17
+         Tag             =   "01"
          Text            =   "800"
          ToolTipText     =   "The image width must be a number."
          Top             =   1440
@@ -89,7 +95,8 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1680
-         TabIndex        =   21
+         TabIndex        =   18
+         Tag             =   "01"
          Text            =   "800"
          ToolTipText     =   "The image height must be a number."
          Top             =   1920
@@ -99,7 +106,8 @@ Begin VB.Form frmSetting
          Caption         =   "Smoothing"
          Height          =   375
          Left            =   360
-         TabIndex        =   18
+         TabIndex        =   15
+         Tag             =   "1"
          Top             =   360
          Value           =   1  'Checked
          Width           =   1335
@@ -109,9 +117,10 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1680
-         TabIndex        =   23
+         TabIndex        =   20
+         Tag             =   "01"
          Text            =   "80"
-         ToolTipText     =   "The image background color lightness must be a 0-100 number."
+         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
          Top             =   3120
          Width           =   975
       End
@@ -119,7 +128,8 @@ Begin VB.Form frmSetting
          Caption         =   "Generate Background"
          Height          =   375
          Left            =   360
-         TabIndex        =   22
+         TabIndex        =   19
+         Tag             =   "1"
          Top             =   2640
          Width           =   2295
       End
@@ -128,7 +138,8 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   255
          Left            =   720
-         TabIndex        =   24
+         TabIndex        =   21
+         Tag             =   "1"
          Top             =   3600
          Width           =   1455
       End
@@ -136,7 +147,8 @@ Begin VB.Form frmSetting
          Caption         =   "Resize Image "
          Height          =   375
          Left            =   360
-         TabIndex        =   19
+         TabIndex        =   16
+         Tag             =   "1"
          Top             =   960
          Width           =   2295
       End
@@ -148,12 +160,13 @@ Begin VB.Form frmSetting
          Y1              =   5400
          Y2              =   5400
       End
-      Begin VB.Label Label3 
+      Begin VB.Label lblDNATryTimes 
          Alignment       =   1  'Right Justify
          Caption         =   "DNA Try Times"
          Height          =   255
          Left            =   120
-         TabIndex        =   50
+         TabIndex        =   51
+         Tag             =   "1"
          Top             =   4920
          Width           =   1455
       End
@@ -165,52 +178,57 @@ Begin VB.Form frmSetting
          Y1              =   4560
          Y2              =   4560
       End
-      Begin VB.Label Label16 
+      Begin VB.Label lblDefault 
          Alignment       =   1  'Right Justify
          Caption         =   "Default"
          ForeColor       =   &H80000011&
          Height          =   255
          Left            =   360
-         TabIndex        =   43
+         TabIndex        =   44
+         Tag             =   "1"
          Top             =   4080
          Width           =   1215
       End
-      Begin VB.Label Label1 
+      Begin VB.Label lblReserved 
          Caption         =   "Reserved parameters zone"
          ForeColor       =   &H80000011&
          Height          =   255
          Left            =   360
-         TabIndex        =   49
+         TabIndex        =   50
+         Tag             =   "1"
          Top             =   5640
          Width           =   2655
       End
-      Begin VB.Label Label13 
+      Begin VB.Label lblWidth 
          Alignment       =   1  'Right Justify
          Caption         =   "Width"
          ForeColor       =   &H80000011&
          Height          =   255
          Left            =   240
-         TabIndex        =   46
+         TabIndex        =   47
+         Tag             =   "1"
          Top             =   1560
          Width           =   1215
       End
-      Begin VB.Label Label14 
+      Begin VB.Label lblHeight 
          Alignment       =   1  'Right Justify
          Caption         =   "Height"
          ForeColor       =   &H80000011&
          Height          =   255
          Left            =   240
-         TabIndex        =   45
+         TabIndex        =   46
+         Tag             =   "1"
          Top             =   2040
          Width           =   1215
       End
-      Begin VB.Label Label15 
+      Begin VB.Label lblLightness 
          Alignment       =   1  'Right Justify
          Caption         =   "Lightness"
          ForeColor       =   &H80000011&
          Height          =   255
          Left            =   360
-         TabIndex        =   44
+         TabIndex        =   45
+         Tag             =   "1"
          Top             =   3240
          Width           =   1215
       End
@@ -231,27 +249,32 @@ Begin VB.Form frmSetting
          Y2              =   2520
       End
    End
-   Begin VB.Frame FrameStep2 
+   Begin VB.Frame FrameMetadataSetting 
       Caption         =   "Metadata Settings"
       Height          =   8415
       Left            =   360
-      TabIndex        =   31
+      TabIndex        =   32
+      Tag             =   "1"
       Top             =   360
       Width           =   6255
       Begin VB.CheckBox chkIgnoreNONE 
          Caption         =   "Ignore NONE"
          Height          =   375
          Left            =   4560
-         TabIndex        =   51
+         TabIndex        =   31
+         Tag             =   "11"
+         ToolTipText     =   "The None attribute is ignored in the metadata"
          Top             =   360
          Value           =   1  'Checked
-         Width           =   1455
+         Width           =   1575
       End
       Begin VB.CheckBox chkWhiteSpace 
          Caption         =   "AddWhitespace"
          Height          =   375
          Left            =   2880
-         TabIndex        =   2
+         TabIndex        =   30
+         Tag             =   "11"
+         ToolTipText     =   "Format json"
          Top             =   360
          Value           =   1  'Checked
          Width           =   1575
@@ -261,7 +284,8 @@ Begin VB.Form frmSetting
          Height          =   375
          Index           =   1
          Left            =   1680
-         TabIndex        =   1
+         TabIndex        =   29
+         Tag             =   "01"
          ToolTipText     =   "Solana Network"
          Top             =   360
          Width           =   1095
@@ -270,7 +294,7 @@ Begin VB.Form frmSetting
          Height          =   375
          Index           =   1
          Left            =   1800
-         TabIndex        =   14
+         TabIndex        =   11
          Top             =   7200
          Width           =   1935
       End
@@ -278,7 +302,7 @@ Begin VB.Form frmSetting
          Height          =   375
          Index           =   1
          Left            =   3840
-         TabIndex        =   15
+         TabIndex        =   12
          Top             =   7200
          Width           =   1935
       End
@@ -286,7 +310,9 @@ Begin VB.Form frmSetting
          Height          =   375
          Index           =   0
          Left            =   3840
-         TabIndex        =   13
+         TabIndex        =   10
+         Tag             =   "01"
+         ToolTipText     =   "Input Value"
          Top             =   6720
          Width           =   1935
       End
@@ -294,28 +320,35 @@ Begin VB.Form frmSetting
          Height          =   375
          Index           =   0
          Left            =   1800
-         TabIndex        =   12
+         TabIndex        =   9
+         Tag             =   "01"
+         ToolTipText     =   "Input Key"
          Top             =   6720
          Width           =   1935
       End
       Begin VB.TextBox txtAnimation_url 
          Height          =   375
          Left            =   1800
-         TabIndex        =   11
+         TabIndex        =   8
+         Tag             =   "01"
+         ToolTipText     =   $"frmSetting.frx":7E6A
          Top             =   6240
          Width           =   3975
       End
       Begin VB.TextBox txtExternal_url 
          Height          =   375
          Left            =   1800
-         TabIndex        =   10
+         TabIndex        =   7
+         Tag             =   "01"
+         ToolTipText     =   "Display this URL in the NFT information"
          Top             =   5760
          Width           =   3975
       End
       Begin VB.TextBox txtNamePrefix 
          Height          =   375
          Left            =   1800
-         TabIndex        =   3
+         TabIndex        =   0
+         Tag             =   "01"
          Text            =   "Your Collection"
          ToolTipText     =   "Your collection name"
          Top             =   1080
@@ -324,7 +357,8 @@ Begin VB.Form frmSetting
       Begin VB.TextBox txtImageBaseURL 
          Height          =   375
          Left            =   1800
-         TabIndex        =   5
+         TabIndex        =   2
+         Tag             =   "01"
          Text            =   "ipfs://YourImagesCID/"
          ToolTipText     =   "The URL or ipfs CID of the images folder. At the end is / "
          Top             =   2640
@@ -335,8 +369,9 @@ Begin VB.Form frmSetting
          Left            =   1800
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
-         TabIndex        =   4
-         ToolTipText     =   $"frmSetting.frx":7E6A
+         TabIndex        =   1
+         Tag             =   "01"
+         ToolTipText     =   $"frmSetting.frx":7F02
          Top             =   1560
          Width           =   3975
       End
@@ -344,8 +379,9 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1800
-         TabIndex        =   6
-         ToolTipText     =   "When Solana is selected, the symbol cannot be empty."
+         TabIndex        =   3
+         Tag             =   "01"
+         ToolTipText     =   "When Solana is selected, the symbol cannot be empty"
          Top             =   3480
          Width           =   3975
       End
@@ -353,9 +389,10 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   4440
-         TabIndex        =   9
+         TabIndex        =   6
+         Tag             =   "01"
          Text            =   "500"
-         ToolTipText     =   "Define how much % you want from secondary market sales, 1000 = 10%.The fee must be a number and less than 10000. "
+         ToolTipText     =   "Define how much % you want from secondary market sales, 1000 = 10%.The fee must be a number and less than 10000 "
          Top             =   4440
          Width           =   1335
       End
@@ -363,8 +400,9 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1800
-         TabIndex        =   7
-         ToolTipText     =   "The wallet address is generally 44 characters."
+         TabIndex        =   4
+         Tag             =   "01"
+         ToolTipText     =   "The address of the wallet for the copyright fee collection, usually 44 characters"
          Top             =   3960
          Width           =   3975
       End
@@ -372,7 +410,8 @@ Begin VB.Form frmSetting
          Enabled         =   0   'False
          Height          =   375
          Left            =   1800
-         TabIndex        =   8
+         TabIndex        =   5
+         Tag             =   "01"
          Text            =   "100"
          ToolTipText     =   "Creators share %. Default 100"
          Top             =   4440
@@ -383,20 +422,21 @@ Begin VB.Form frmSetting
          Height          =   375
          Index           =   0
          Left            =   360
-         TabIndex        =   0
+         TabIndex        =   28
+         Tag             =   "01"
          ToolTipText     =   "Ethereum Network"
          Top             =   360
          Value           =   -1  'True
          Width           =   1215
       End
-      Begin VB.Label Label18 
-         Alignment       =   2  'Center
+      Begin VB.Label lblExtendedinfo 
          Caption         =   "Extended information"
          Height          =   375
-         Left            =   360
-         TabIndex        =   48
+         Left            =   480
+         TabIndex        =   49
+         Tag             =   "1"
          Top             =   5280
-         Width           =   2025
+         Width           =   4185
       End
       Begin VB.Line Line1 
          BorderColor     =   &H80000000&
@@ -414,15 +454,15 @@ Begin VB.Form frmSetting
          Y1              =   3240
          Y2              =   3240
       End
-      Begin VB.Label Label2 
+      Begin VB.Label lblAnimation_url 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "animation_url"
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   195
-         TabIndex        =   47
-         ToolTipText     =   $"frmSetting.frx":7E8B
+         TabIndex        =   48
+         Tag             =   "1"
          Top             =   6360
          Width           =   1425
       End
@@ -431,103 +471,112 @@ Begin VB.Form frmSetting
          Caption         =   "*"
          Height          =   255
          Left            =   5880
-         TabIndex        =   41
+         TabIndex        =   42
          Top             =   2760
          Width           =   255
       End
-      Begin VB.Label Label9 
+      Begin VB.Label lblExternal_url 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "external_url"
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   240
-         TabIndex        =   40
+         TabIndex        =   41
+         Tag             =   "1"
          Top             =   5880
          Width           =   1425
       End
-      Begin VB.Label Label4 
+      Begin VB.Label lblNamePrefix 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "namePrefix"
          Height          =   375
          Left            =   240
-         TabIndex        =   39
+         TabIndex        =   40
+         Tag             =   "1"
          Top             =   1200
          Width           =   1425
       End
-      Begin VB.Label Label6 
+      Begin VB.Label lblImageBaseURL 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "imageBaseURL"
          Height          =   375
          Left            =   240
-         TabIndex        =   38
+         TabIndex        =   39
+         Tag             =   "1"
          Top             =   2760
          Width           =   1425
       End
-      Begin VB.Label Label5 
+      Begin VB.Label lblDescription 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "description"
          Height          =   375
          Left            =   240
-         TabIndex        =   37
+         TabIndex        =   38
+         Tag             =   "1"
          Top             =   1920
          Width           =   1425
       End
-      Begin VB.Label Label12 
+      Begin VB.Label lblExtraMetadata 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "extraMetadata"
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   240
-         TabIndex        =   36
+         TabIndex        =   37
+         Tag             =   "1"
          Top             =   6840
          Width           =   1425
       End
-      Begin VB.Label Label7 
+      Begin VB.Label lblSysbol 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "symbol"
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   240
-         TabIndex        =   35
+         TabIndex        =   36
+         Tag             =   "1"
          Top             =   3600
          Width           =   1425
       End
-      Begin VB.Label Label8 
+      Begin VB.Label lblFee 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "fee"
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   2880
-         TabIndex        =   34
+         TabIndex        =   35
+         Tag             =   "1"
          Top             =   4560
          Width           =   1425
       End
-      Begin VB.Label Label10 
+      Begin VB.Label lblCreatorsAdd 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "creatorsAdd."
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   315
-         TabIndex        =   33
+         TabIndex        =   34
+         Tag             =   "1"
          Top             =   4080
          Width           =   1425
       End
-      Begin VB.Label Label11 
+      Begin VB.Label lblCreatorsShare 
          Alignment       =   1  'Right Justify
          BackStyle       =   0  'Transparent
          Caption         =   "creatorsShare"
          ForeColor       =   &H80000011&
          Height          =   375
          Left            =   240
-         TabIndex        =   32
+         TabIndex        =   33
+         Tag             =   "1"
          Top             =   4560
          Width           =   1425
       End
@@ -544,7 +593,8 @@ Begin VB.Form frmSetting
       Caption         =   "Clear"
       Height          =   495
       Left            =   360
-      TabIndex        =   29
+      TabIndex        =   24
+      Tag             =   "1"
       Top             =   9000
       Width           =   1215
    End
@@ -552,7 +602,8 @@ Begin VB.Form frmSetting
       Caption         =   "Save"
       Height          =   495
       Left            =   5400
-      TabIndex        =   28
+      TabIndex        =   26
+      Tag             =   "1"
       Top             =   9000
       Width           =   1215
    End
@@ -574,7 +625,7 @@ Private Sub cmdClear_Click()
         For Each o In Me.Controls
             If typeName(o) = "TextBox" Then o.BackColor = &H80000005
         Next
-   If MsgBox("Are you sure to clear?", vbQuestion + vbYesNo) = vbYes Then
+   If MsgBox(Language.Item("Tips35"), vbQuestion + vbYesNo) = vbYes Then
         OptionNetwork(0).Value = True
         OptionNetwork(1).Value = False
         chkWhiteSpace.Value = Checked
@@ -636,6 +687,7 @@ Private Sub cmdLoadSetting_Click()
 End Sub
 
 Private Sub Form_Load()
+    TranslateForm Me
     cmdLoadSetting_Click
 End Sub
 
@@ -650,7 +702,7 @@ End Sub
 
 Private Sub cmdSave_Click()
     If saveSetting = True Then
-        MsgBox "The setting has saved.", vbInformation
+        MsgBox Language.Item("Tips33"), vbInformation
     End If
 End Sub
 
@@ -719,7 +771,7 @@ Private Function saveSetting() As Boolean
         errCount = errCount + 1
     End If
     If errCount > 0 Then
-        MsgBox "Pleae fix errors.", vbCritical
+        MsgBox Language.Item("Tips34"), vbCritical
         Exit Function
     End If
     Set settingJB = New JsonBag
@@ -749,49 +801,51 @@ Private Sub OptionNetwork_Click(Index As Integer)
         txtSolFee.Enabled = False
         txtSolCreatorsAddress.Enabled = False
         txtSolCreatorsShare.Enabled = False
-        Label7.ForeColor = &H80000011
-        Label8.ForeColor = &H80000011
-        Label10.ForeColor = &H80000011
-        Label11.ForeColor = &H80000011
+        lblSysbol.ForeColor = &H80000011
+        lblCreatorsAdd.ForeColor = &H80000011
+        lblCreatorsShare.ForeColor = &H80000011
+        lblFee.ForeColor = &H80000011
     ElseIf Index = 1 Then
         txtSolSymbol.Enabled = True
         txtSolFee.Enabled = True
         txtSolCreatorsAddress.Enabled = True
         txtSolCreatorsShare.Enabled = True
-        Label7.ForeColor = &H80000012
-        Label8.ForeColor = &H80000012
-        Label10.ForeColor = &H80000012
-        Label11.ForeColor = &H80000012
+        lblSysbol.ForeColor = &H80000012
+        lblCreatorsAdd.ForeColor = &H80000012
+        lblCreatorsShare.ForeColor = &H80000012
+        lblFee.ForeColor = &H80000012
+    End If
+End Sub
+
+Private Sub chkResize_Click()
+    If chkResize.Value = Unchecked Then
+        lblWidth.ForeColor = &H80000011
+        lblHeight.ForeColor = &H80000011
+        txtWidth.Enabled = False
+        txtHeight.Enabled = False
+    ElseIf chkResize.Value = Checked Then
+        lblWidth.ForeColor = &H80000012
+        lblHeight.ForeColor = &H80000012
+        txtWidth.Enabled = True
+        txtHeight.Enabled = True
     End If
 End Sub
 
 Private Sub chkBackground_Click()
     If chkBackground.Value = Unchecked Then
-        Label15.ForeColor = &H80000011
-        Label16.ForeColor = &H80000011
+        lblLightness.ForeColor = &H80000011
+        lblDefault.ForeColor = &H80000011
         txtLightness.Enabled = False
         txtStaticColor.Enabled = False
         chkStaticColor.Enabled = False
     ElseIf chkBackground.Value = Checked Then
-        Label15.ForeColor = &H80000012
-        Label16.ForeColor = &H80000012
+        lblLightness.ForeColor = &H80000012
+        lblDefault.ForeColor = &H80000012
         txtLightness.Enabled = True
         txtStaticColor.Enabled = True
         chkStaticColor.Enabled = True
     End If
 End Sub
 
-Private Sub chkResize_Click()
-    If chkResize.Value = Unchecked Then
-        Label13.ForeColor = &H80000011
-        Label14.ForeColor = &H80000011
-        txtWidth.Enabled = False
-        txtHeight.Enabled = False
-    ElseIf chkResize.Value = Checked Then
-        Label13.ForeColor = &H80000012
-        Label14.ForeColor = &H80000012
-        txtWidth.Enabled = True
-        txtHeight.Enabled = True
-    End If
-End Sub
+
 
