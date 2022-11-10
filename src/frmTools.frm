@@ -322,7 +322,7 @@ Private Sub updateBaseURL(jsonDir As String)
         On Error GoTo nextJson
         If LCase(Right(tempName, 5)) = ".json" Then
             DoEvents
-            showTips Language.Item("Tips24") & tempName
+            showTips Language.Item("Tips24") & k
             
             fn = FreeFile
             Open jsonDir & "\" & tempName For Input As #fn
@@ -336,7 +336,6 @@ Private Sub updateBaseURL(jsonDir As String)
             Open jsonDir & "\" & tempName For Output As #fn
             Print #fn, JB.JSON
             Close #fn
-            
             k = k + 1
         End If
         tempName = Dir()
@@ -368,7 +367,7 @@ Private Sub updateAll(jsonDir As String)
         On Error GoTo nextJson
         If LCase(Right(tempName, 5)) = ".json" Then
             DoEvents
-            showTips Language.Item("Tips24") & tempName
+            showTips Language.Item("Tips24") & k
         
             fn = FreeFile
             Open jsonDir & "\" & tempName For Input As #fn

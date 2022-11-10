@@ -1370,7 +1370,7 @@ Private Sub cmdUpdate_Click()
         Name tempImagesDir & "\" & nameArray(i) & ".png" As imagesDir & "\" & abstractedIndexes(i) & extensionName
         With JB
             .Item("name") = Split(.Item("name"), "#")(0) & "#" & abstractedIndexes(i)
-            .Item("image") = ParsePath(.Item("name")) & abstractedIndexes(i) & extensionName
+            .Item("image") = ParsePath(.Item("image")) & abstractedIndexes(i) & extensionName
             If IsSolana Then .Item("properties").Item("files")(1).Item("uri") = .Item("image")
         End With
         fn = FreeFile
