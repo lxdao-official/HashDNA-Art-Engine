@@ -13,6 +13,127 @@ Begin VB.Form frmSetting
    ScaleHeight     =   9795
    ScaleWidth      =   10665
    ShowInTaskbar   =   0   'False
+   Begin VB.Frame FrameCharSettings 
+      Caption         =   "Special characters Setting"
+      Height          =   2655
+      Left            =   6960
+      TabIndex        =   51
+      Tag             =   "1"
+      Top             =   6120
+      Width           =   3255
+      Begin VB.TextBox txtReplace 
+         Alignment       =   2  'Center
+         Height          =   375
+         Index           =   2
+         Left            =   360
+         TabIndex        =   61
+         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
+         Top             =   1920
+         Width           =   975
+      End
+      Begin VB.TextBox txtSign 
+         Alignment       =   2  'Center
+         Height          =   375
+         Index           =   2
+         Left            =   1920
+         TabIndex        =   59
+         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
+         Top             =   1920
+         Width           =   975
+      End
+      Begin VB.TextBox txtReplace 
+         Alignment       =   2  'Center
+         Height          =   375
+         Index           =   1
+         Left            =   360
+         TabIndex        =   58
+         Text            =   "/"
+         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
+         Top             =   1440
+         Width           =   975
+      End
+      Begin VB.CheckBox chkReplace 
+         Caption         =   "Replace Sign"
+         Height          =   375
+         Left            =   360
+         TabIndex        =   57
+         Tag             =   "1"
+         Top             =   360
+         Value           =   1  'Checked
+         Width           =   2655
+      End
+      Begin VB.TextBox txtSign 
+         Alignment       =   2  'Center
+         Height          =   375
+         Index           =   1
+         Left            =   1920
+         TabIndex        =   54
+         Text            =   "_SLASH_"
+         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
+         Top             =   1440
+         Width           =   975
+      End
+      Begin VB.TextBox txtSign 
+         Alignment       =   2  'Center
+         Height          =   375
+         Index           =   0
+         Left            =   1920
+         TabIndex        =   53
+         Tag             =   "01"
+         Text            =   "_COLONS_"
+         ToolTipText     =   "The sign in the file name."
+         Top             =   960
+         Width           =   975
+      End
+      Begin VB.TextBox txtReplace 
+         Alignment       =   2  'Center
+         Height          =   375
+         Index           =   0
+         Left            =   360
+         TabIndex        =   52
+         Tag             =   "01"
+         Text            =   ":"
+         ToolTipText     =   "Special Character"
+         Top             =   960
+         Width           =   975
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   ">>"
+         Height          =   330
+         Index           =   2
+         Left            =   1440
+         TabIndex        =   60
+         Tag             =   "1"
+         Top             =   1965
+         Width           =   495
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   ">>"
+         Height          =   330
+         Index           =   1
+         Left            =   1440
+         TabIndex        =   56
+         Tag             =   "1"
+         Top             =   1485
+         Width           =   495
+      End
+      Begin VB.Label Label1 
+         Alignment       =   2  'Center
+         BackStyle       =   0  'Transparent
+         Caption         =   ">>"
+         Height          =   330
+         Index           =   0
+         Left            =   1440
+         TabIndex        =   55
+         Tag             =   "1"
+         Top             =   1035
+         Width           =   495
+      End
+   End
    Begin VB.TextBox txtExtra 
       Height          =   375
       Index           =   2
@@ -49,7 +170,7 @@ Begin VB.Form frmSetting
    End
    Begin VB.Frame FrameImageSetting 
       Caption         =   "Image Settings"
-      Height          =   8415
+      Height          =   5415
       Left            =   6960
       TabIndex        =   43
       Tag             =   "1"
@@ -110,7 +231,7 @@ Begin VB.Form frmSetting
          Tag             =   "1"
          Top             =   360
          Value           =   1  'Checked
-         Width           =   1335
+         Width           =   2535
       End
       Begin VB.TextBox txtLightness 
          Alignment       =   2  'Center
@@ -131,7 +252,7 @@ Begin VB.Form frmSetting
          TabIndex        =   19
          Tag             =   "1"
          Top             =   2640
-         Width           =   2295
+         Width           =   2535
       End
       Begin VB.CheckBox chkStaticColor 
          Caption         =   "Static"
@@ -150,22 +271,14 @@ Begin VB.Form frmSetting
          TabIndex        =   16
          Tag             =   "1"
          Top             =   960
-         Width           =   2295
-      End
-      Begin VB.Line Line1 
-         BorderColor     =   &H80000000&
-         Index           =   0
-         X1              =   240
-         X2              =   2880
-         Y1              =   5400
-         Y2              =   5400
+         Width           =   2535
       End
       Begin VB.Label lblDNATryTimes 
          Alignment       =   1  'Right Justify
          Caption         =   "DNA Try Times"
          Height          =   255
          Left            =   120
-         TabIndex        =   51
+         TabIndex        =   50
          Tag             =   "1"
          Top             =   4920
          Width           =   1455
@@ -188,16 +301,6 @@ Begin VB.Form frmSetting
          Tag             =   "1"
          Top             =   4080
          Width           =   1215
-      End
-      Begin VB.Label lblReserved 
-         Caption         =   "Reserved parameters zone"
-         ForeColor       =   &H80000011&
-         Height          =   255
-         Left            =   360
-         TabIndex        =   50
-         Tag             =   "1"
-         Top             =   5640
-         Width           =   2655
       End
       Begin VB.Label lblWidth 
          Alignment       =   1  'Right Justify
@@ -615,8 +718,9 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub cmdBack_Click()
-    If saveSetting = True Then Me.Hide
+Private Sub Form_Load()
+    TranslateForm Me
+    cmdLoadSetting_Click
 End Sub
 
 Private Sub cmdClear_Click()
@@ -639,12 +743,10 @@ Private Sub cmdClear_Click()
         txtSolFee.Text = 500
         txtExternal_url.Text = ""
         txtAnimation_url.Text = ""
-        txtExtra(0).Text = ""
-        txtExtra(1).Text = ""
-        txtExtra(2).Text = ""
-        txtExtraValue(0).Text = ""
-        txtExtraValue(1).Text = ""
-        txtExtraValue(2).Text = ""
+        For i = 0 To txtExtra.UBound
+            txtExtra(i).Text = ""
+            txtExtraValue(i).Text = ""
+        Next i
         chkSmoothing.Value = Checked
         chkResize.Value = Unchecked
         txtWidth.Text = 800
@@ -654,50 +756,38 @@ Private Sub cmdClear_Click()
         chkStaticColor.Value = Unchecked
         txtStaticColor.Text = "FFFFFF"
         txtDnaTryTimes.Text = 20000
+        chkReplace.Value = Checked
+        txtReplace(0) = ":"
+        txtReplace(1) = "/"
+        txtReplace(2) = ""
+        txtSign(0) = "_COLONS_"
+        txtSign(1) = "_SLASH_"
+        txtSign(2) = ""
    End If
 End Sub
 
 Private Sub cmdLoadSetting_Click()
     If Dir(layersDir & "\Setting.json") = "" Then Exit Sub
     Dim settingJB As JsonBag, fn As Integer, i As Integer
-    Dim o As Object
+    Dim o As Object, sKey As String, ctrlIndex As Integer
     Set settingJB = New JsonBag
     settingJB.Whitespace = True
     fn = FreeFile
+    On Error Resume Next
     Open layersDir & "\Setting.json" For Input As #fn
     settingJB.JSON = StrConv(InputB(LOF(fn), fn), vbUnicode)
     Close #fn
-    With settingJB
-        For Each o In Me.Controls
-            If typeName(o) = "TextBox" Then
-                If VarType(CallByName(Me, o.Name, VbGet)) = vbObject Then
-                    If .Exists(o.Name & "-" & o.Index) Then o.Text = .Item(o.Name & "-" & o.Index)
-                Else
-                   If .Exists(o.Name) Then o.Text = .Item(o.Name)
-                End If
-            ElseIf typeName(o) = "OptionButton" Or typeName(o) = "CheckBox" Then
-                If VarType(CallByName(Me, o.Name, VbGet)) = vbObject Then
-                    If .Exists(o.Name & "-" & o.Index) Then o.Value = .Item(o.Name & "-" & o.Index)
-                Else
-                    If .Exists(o.Name) Then o.Value = .Item(o.Name)
-                End If
-            End If
-        Next
-    End With
-End Sub
-
-Private Sub Form_Load()
-    TranslateForm Me
-    cmdLoadSetting_Click
-End Sub
-
-Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-    If saveSetting = True Then
-        Cancel = True
-        Me.Hide
-    Else
-        Cancel = 2
-    End If
+    Err.Clear
+    If settingJB Is Nothing Then Exit Sub
+    For Each o In Me.Controls
+        sKey = o.Name
+        On Error Resume Next
+        ctrlIndex = o.Index
+        If Err.Number = 0 Then sKey = sKey & "-" & ctrlIndex
+        Err.Clear
+        If settingJB.Exists(sKey & ".Value") Then o.Value = settingJB.Item(sKey & ".Value")
+        If settingJB.Exists(sKey & ".Text") Then o.Text = settingJB.Item(sKey & ".Text")
+    Next
 End Sub
 
 Private Sub cmdSave_Click()
@@ -709,6 +799,8 @@ End Sub
 Private Function saveSetting() As Boolean
     Dim settingJB As JsonBag, fn As Integer, i As Integer
     Dim o As Object, errCount As Long
+    Dim sKey As String
+    Dim ctrlIndex As Integer
     errCount = 0
     saveSetting = False
     For Each o In Me.Controls
@@ -780,11 +872,16 @@ Private Function saveSetting() As Boolean
         .Clear
         .IsArray = False
         For Each o In Me.Controls
+            sKey = o.Name
+            On Error Resume Next
+            ctrlIndex = o.Index
+            If Err.Number = 0 Then sKey = sKey & "-" & ctrlIndex
+            Err.Clear
+            
             If typeName(o) = "TextBox" Then
-                If VarType(CallByName(Me, o.Name, VbGet)) = vbObject Then .Item(o.Name & "-" & o.Index) = o.Text Else .Item(o.Name) = o.Text
+                .Item(sKey & ".Text") = o.Text
             ElseIf typeName(o) = "OptionButton" Or typeName(o) = "CheckBox" Then
-                .Item(o.Name) = o.Value
-                If VarType(CallByName(Me, o.Name, VbGet)) = vbObject Then .Item(o.Name & "-" & o.Index) = o.Value Else .Item(o.Name) = o.Value
+                .Item(sKey & ".Value") = o.Value
             End If
         Next
     End With
@@ -794,6 +891,10 @@ Private Function saveSetting() As Boolean
     Close #fn
     saveSetting = True
 End Function
+
+Private Sub cmdBack_Click()
+    If saveSetting = True Then Me.Hide
+End Sub
 
 Private Sub OptionNetwork_Click(Index As Integer)
     If Index = 0 Then
@@ -846,6 +947,31 @@ Private Sub chkBackground_Click()
         chkStaticColor.Enabled = True
     End If
 End Sub
+
+Private Sub chkReplace_Click()
+    Dim i As Integer
+    If chkReplace.Value = Unchecked Then
+        For i = 0 To txtReplace.UBound
+                txtReplace(i).Enabled = False
+                txtSign(i).Enabled = False
+        Next i
+    ElseIf chkReplace.Value = Checked Then
+        For i = 0 To txtReplace.UBound
+            txtReplace(i).Enabled = True
+            txtSign(i).Enabled = True
+        Next i
+    End If
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    If saveSetting = True Then
+        Cancel = True
+        Me.Hide
+    Else
+        Cancel = 2
+    End If
+End Sub
+
 
 
 

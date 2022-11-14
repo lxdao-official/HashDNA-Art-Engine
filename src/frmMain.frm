@@ -359,8 +359,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '********************************************************************
 '
-'                   HashDNA Art Engine v1.1.0
-'                          2022-11-09
+'                   HashDNA Art Engine v1.2.0
+'                          2022-11-14
 '
 '   This software is designed to help artists generate 10K images
 '   freely and easily, without programming knowledge. It refers to
@@ -378,12 +378,14 @@ Attribute VB_Exposed = False
 
 Option Explicit
 Const oneArtFolderName As String = "1of1"
+Const signSkip As String = "_SKIP_"
+Const signOnly As String = "_ONLY_"
 Const rarityDelimiter As String = "#"
 Dim layerConfigurations() As layerConfig 'All layers configuration information
 Dim layers() As layer 'All layers infomation in a type
 Dim elements() As element 'All elements information in a layer
 Dim DNA As Collection '
-Dim newDNA() As String 'Each element number of a DNA
+Dim newDNA() As Long  'Each element number of a DNA
 Dim totalEditions As Long
 
 'in the General Declarations section (at the top of the code file)
@@ -537,7 +539,7 @@ ErrorHandler:
 End Sub
 
 'Get 1/1 files.
-Private Function getSpecialFiles(typeDir As String) As String()
+Private Function getSpecialFiles(ByVal typeDir As String) As String()
     Dim k As Long
     Dim specialName As String
     Dim specialFiles() As String
@@ -553,7 +555,7 @@ Private Function getSpecialFiles(typeDir As String) As String()
 End Function
 
 'Get the layers order from directory structure or order.txt file.
-Private Function getLayersOrder(typeDir As String) As String()
+Private Function getLayersOrder(ByVal typeDir As String) As String()
     Dim foldername As String
     Dim orderFile As String
     Dim layersOrder() As String
@@ -897,7 +899,6 @@ Private Sub cmdStart_Click()
         If maxSize > layerConfigurations(layerConfigIndex).typeSize Then maxSize = layerConfigurations(layerConfigIndex).typeSize
 
         'Prepare for drawing memory bitmaps and previews.
-
         'If no image size is set, read the size of an element png and use it as the image size.
         If frmSetting.chkResize.Value = Unchecked Then
             GdipLoadImageFromFile StrPtr(layers(0).elements(0).path), Image
@@ -934,10 +935,12 @@ Private Sub cmdStart_Click()
                 GdipGraphicsClear graphics, getColor
                 'Draw each element png to the memory bitmap in turn
                 For k = 0 To UBound(newDNA)
-                    GdipLoadImageFromFile StrPtr(layers(k).elements(Val(newDNA(k))).path), Image
-                    GdipDrawImageRect graphics, Image, 0, 0, imgWidth, imgHeight
-                    GdipDisposeImage Image
-                    layers(k).elements(newDNA(k)).usedCount = layers(k).elements(newDNA(k)).usedCount + 1
+                    If newDNA(k) <> -1 Then
+                        GdipLoadImageFromFile StrPtr(layers(k).elements(newDNA(k)).path), Image
+                        GdipDrawImageRect graphics, Image, 0, 0, imgWidth, imgHeight
+                        GdipDisposeImage Image
+                        layers(k).elements(newDNA(k)).usedCount = layers(k).elements(newDNA(k)).usedCount + 1
+                    End If
                 Next k
                 SaveImageToPNG bitmap, buildDir & "\images\" & editionCount & ".png"
                 'Preview the generated image
@@ -992,6 +995,8 @@ Private Function checkElements() As Long
     Dim pngErrCount As Long
     ReDim errInfo(0)
     showTips Language.Item("Tips20")
+    DoEvents
+    If IsUnloading Then Exit Function
     errInfo(0) = "-------------------------- Error information --------------------------" & vbCrLf
     pngErrCount = 0
     For layerConfigIndex = 0 To UBound(layerConfigurations)
@@ -1069,10 +1074,11 @@ Private Function genColor() As Long
 End Function
 
 'Get the metadata value from the current layer name, editionCount and newDNA() information, then added to the metadata template.
-Private Sub creatMetadata(editionCount As Long, Optional specialFileName As String = "")
+Private Sub creatMetadata(ByVal editionCount As Long, Optional ByVal specialFileName As String = "")
     Dim namePrefix As String
     Dim imageBaseURL As String
     Dim extensionName As String
+    Dim thisValue As String
     Dim ignoreNONE As Boolean
     Dim i As Long
     If frmSetting.chkIgnoreNONE.Value = Checked Then ignoreNONE = True Else ignoreNONE = False
@@ -1089,24 +1095,18 @@ Private Sub creatMetadata(editionCount As Long, Optional specialFileName As Stri
         With JB.Item("attributes")
             With .AddNewObject()
                 .Item("trait_type") = "1/1"
-                If IsNumeric(cleanName(specialFileName)) Then
-                    .Item("value") = Val(cleanName(specialFileName))
-                Else
-                    .Item("value") = cleanName(specialFileName)
-                End If
+                thisValue = cleanName(specialFileName)
+                If IsNumeric(thisValue) Then .Item("value") = Val(thisValue) Else .Item("value") = thisValue
             End With
         End With
     Else
         With JB.Item("attributes")
             For i = 0 To UBound(newDNA)
-                If Not (UCase(layers(i).elements(Val(newDNA(i))).Name) = "NONE" And ignoreNONE = True) Then
+                If newDNA(i) = -1 Then thisValue = "NONE" Else thisValue = layers(i).elements(newDNA(i)).trait_value
+                If Not (UCase(thisValue) = "NONE" And ignoreNONE = True) Then
                     With .AddNewObject()
-                        .Item("trait_type") = layers(i).Name
-                        If IsNumeric(layers(i).elements(Val(newDNA(i))).Name) Then
-                            .Item("value") = Val(layers(i).elements(Val(newDNA(i))).Name)
-                        Else
-                            .Item("value") = layers(i).elements(Val(newDNA(i))).Name
-                        End If
+                        .Item("trait_type") = layers(i).trait_type
+                        If IsNumeric(thisValue) Then .Item("value") = Val(thisValue) Else .Item("value") = thisValue
                     End With
                 End If
             Next i
@@ -1115,7 +1115,7 @@ Private Sub creatMetadata(editionCount As Long, Optional specialFileName As Stri
 End Sub
 
 'Save json file.
-Private Sub saveMetadataFile(editionCount As Long)
+Private Sub saveMetadataFile(ByVal editionCount As Long)
     Dim fn As Integer
     fn = FreeFile
     Open buildDir & "\json\" & editionCount & ".json" For Output As #fn
@@ -1124,7 +1124,7 @@ Private Sub saveMetadataFile(editionCount As Long)
 End Sub
 
 'Get the layers configuration infomation of a type, including elements,
-Private Function layersSetup(layerConfigIndex As Long) As Boolean
+Private Function layersSetup(ByVal layerConfigIndex As Long) As Boolean
     Dim i As Long, j As Long, k As Long, n As Long, maxWeight As Long, maxWeightIndex As Long
     Dim layersOrder() As String
     Dim typeName As String
@@ -1142,6 +1142,7 @@ Private Function layersSetup(layerConfigIndex As Long) As Boolean
             ReDim Preserve layers(k)
             layers(k).id = k
             layers(k).Name = tempName
+            layers(k).trait_type = replaceSign(tempName)
             If Right(layersOrder(i), 1) = "*" Then layers(k).bypassDNA = True Else layers(k).bypassDNA = False
             layers(k).elements = elements
             layers(k).totalWeight = 0
@@ -1167,7 +1168,7 @@ Private Function layersSetup(layerConfigIndex As Long) As Boolean
 End Function
 
 'Get all elements infomation of a layer
-Private Function getElements(path As String) As Boolean
+Private Function getElements(ByVal path As String) As Boolean
     Dim i As Long
     Dim iName As String
     i = 0
@@ -1177,8 +1178,9 @@ Private Function getElements(path As String) As Boolean
             ReDim Preserve elements(i)
             With elements(i)
                 .id = i
-                .Name = cleanName(iName)
+                .trait_value = cleanName(iName)
                 .fileName = iName
+                .skipLayer = getSkipLayer(iName)
                 .path = path & iName
                 .weight = getRarityWeight(iName)
             End With
@@ -1189,8 +1191,41 @@ Private Function getElements(path As String) As Boolean
     If i = 0 Then getElements = False Else getElements = True
 End Function
 
+'Remove weight from filename, leaving only the clean filenamea as the metadata attribute value.
+Private Function cleanName(ByVal Str As String) As String
+    Str = Split(GetFileName(Str), rarityDelimiter)(0)
+    Str = Split(Str, signSkip)(0)
+    'Str = Split(Str, signOnly)(0)
+    Str = replaceSign(Str)
+    cleanName = Str
+End Function
+
+'Under Windows system, the file name cannot contain characters such as ":" , "/" , these characters can be replaced with signs,
+'which are replaced by replaceSign() function when writing json.replace, eg. _COLONS_ -> : , _SLASH_ -> /
+Private Function replaceSign(ByVal Str As String) As String
+    If frmSetting.chkReplace = Checked Then
+        Dim i As Integer
+        For i = 0 To frmSetting.txtSign.UBound
+            If frmSetting.txtSign(i).Text <> "" Then Str = Replace(Str, frmSetting.txtSign(i).Text, frmSetting.txtReplace(i).Text)
+        Next i
+    End If
+    replaceSign = Str
+End Function
+
+'A certain element may be mutually exclusive with a certain layer, this getSkipLayer() function finds out the layer name.
+Private Function getSkipLayer(ByVal Str As String) As String()
+    'Dim a As Variant
+    Str = Split(GetFileName(Str), rarityDelimiter)(0)
+    getSkipLayer = Split(Str, signSkip)
+'    If UBound(a) <> 0 Then
+'        getSkipLayer = a(UBound(a))
+'    Else
+'        getSkipLayer = ""
+'    End If
+End Function
+
 'Detach weight from filename
-Private Function getRarityWeight(Str As String) As Long
+Private Function getRarityWeight(ByVal Str As String) As Long
     Dim nameWithoutExtension As String
     Dim a As Variant
     nameWithoutExtension = GetFileName(Str)
@@ -1226,14 +1261,18 @@ Private Sub DrawPng(ByVal pngfile As String)
 End Sub
 
 'Randomly create a DNA based on the current layers() content
-Private Function createDNA(failedCount As Long) As String
+Private Function createDNA(ByVal failedCount As Long) As String
     Dim thisDNA As String
     Dim i As Long, j As Long, k As Long
+    Dim maxTryTimes As Long
     Dim random As Long
+    Dim skipLayerName() As String
     'Get a random DNA
     thisDNA = ""
+    maxTryTimes = Val(frmSetting.txtDnaTryTimes) / 2
     ReDim newDNA(UBound(layers))
     For i = 0 To UBound(layers)
+        If newDNA(i) = -1 Then GoTo NEXTI
         k = 0
         Do While True
             'number between 0 - totalWeight
@@ -1245,15 +1284,25 @@ Private Function createDNA(failedCount As Long) As String
             Next j
            'When an element is used enough times (the number of NFTs * the weight of the element/total weight), it is no longer used
            'and the element is re-extracted. Unless the number of failures to generate independent DNA is greater than 10000.
-            If layers(i).elements(j).usedCount < layers(i).elements(j).usableMax Or failedCount > Val(frmSetting.txtDnaTryTimes) / 2 Or k > Val(frmSetting.txtDnaTryTimes) / 2 Then
+            If layers(i).elements(j).usedCount < layers(i).elements(j).usableMax Or failedCount > maxTryTimes Or k > maxTryTimes Then
                 If layers(i).bypassDNA = False Then
-                    If thisDNA = "" Then thisDNA = layers(i).elements(j).Name Else thisDNA = thisDNA & "-" & layers(i).elements(j).Name
+                    If thisDNA = "" Then thisDNA = layers(i).elements(j).trait_value Else thisDNA = thisDNA & "-" & layers(i).elements(j).trait_value
                 End If
                 newDNA(i) = j
                 Exit Do
             End If
             k = k + 1
         Loop
+        'Skip some layers
+        skipLayerName() = layers(i).elements(newDNA(i)).skipLayer
+        If UBound(skipLayerName) <> 0 Then
+            For k = 1 To UBound(skipLayerName)
+                For j = 0 To UBound(layers)
+                    If LCase(layers(j).Name) = LCase(skipLayerName(k)) Then newDNA(j) = -1
+                Next j
+            Next k
+        End If
+NEXTI:
     Next i
     createDNA = thisDNA
 End Function
@@ -1270,11 +1319,6 @@ Function isDnaUnique(ByVal thisDNA As String) As Boolean
     Else
         isDnaUnique = False
     End If
-End Function
-
-'Remove weight from filename, leaving only the clean filenamea as the metadata attribute value.
-Private Function cleanName(Str As String) As String
-  cleanName = Split(GetFileName(Str), rarityDelimiter)(0)
 End Function
 
 '******************************************************************************************
@@ -1395,7 +1439,7 @@ Private Sub cmdUpdate_Click()
 End Sub
 
 'Status bar information
-Private Sub showTips(Str As String)
+Private Sub showTips(ByVal Str As String)
     picTips.Cls
     picTips.CurrentX = 0
     picTips.CurrentY = (picTips.ScaleHeight - picTips.TextHeight(Str)) / 2

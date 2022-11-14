@@ -3,9 +3,10 @@ Option Explicit
 
 Type element
     id As Long
-    Name As String
     fileName As String
+    trait_value As String
     path As String
+    skipLayer() As String
     weight As Long
     usableMax As Long
     usedCount As Long
@@ -14,6 +15,7 @@ End Type
 Type layer
     id As Long
     Name As String
+    trait_type As String
     bypassDNA As Boolean
     totalWeight As Long
     elements() As element
@@ -124,7 +126,7 @@ Public Sub GetTemplateJB()
 End Sub
 
 'HSL format color to RGB format color
-Public Function HSL2RGB(h As Integer, s As Integer, l As Integer) As String
+Public Function HSL2RGB(ByVal h As Integer, ByVal s As Integer, ByVal l As Integer) As String
     Dim i As Integer
     Dim r As Integer, g As Integer, b As Integer
     Dim rc As Single, Gc As Single, Bc As Single
@@ -201,7 +203,7 @@ ErrHandler:
 End Function
 
 'Returns a array sorted randomly from min to max.
-Public Function Shuffle(min As Long, max As Long) As Long()
+Public Function Shuffle(ByVal min As Long, ByVal max As Long) As Long()
     Dim i As Long, j As Long, tmp As Long
     Dim X() As Long
     ReDim X(max - min)
@@ -219,13 +221,13 @@ Public Function Shuffle(min As Long, max As Long) As Long()
 End Function
 
 'Resize images
-Public Function Resize(imagePath As String, Optional saveWidth As Long = 0&, Optional saveHeight As Long = 0&, Optional SmoothingMode As Boolean = True) As Boolean
+Public Function Resize(ByVal imagePath As String, Optional ByVal saveWidth As Long = 0&, Optional ByVal saveHeight As Long = 0&, Optional ByVal SmoothingMode As Boolean = True) As Boolean
     Dim graphics As Long
     Dim bitmap As Long
     Dim Image As Long
     Dim imgWidth As Long
     Dim imgHeight As Long
-    
+
     If GdipLoadImageFromFile(StrPtr(imagePath), Image) <> Ok Then
         Resize = False
         Exit Function
@@ -234,7 +236,7 @@ Public Function Resize(imagePath As String, Optional saveWidth As Long = 0&, Opt
     End If
     GdipGetImageWidth Image, imgWidth
     GdipGetImageHeight Image, imgHeight
-    
+
     'If a width and height value has been specified, it will be used, and if it is not specified,
     'it will be superimposed according to the size of the original image.
     If saveWidth > 1 And saveHeight > 1 Then
@@ -249,10 +251,10 @@ Public Function Resize(imagePath As String, Optional saveWidth As Long = 0&, Opt
         imgWidth = saveWidth
         imgHeight = saveHeight
     End If
-    
+
     CreateBitmapWithGraphics bitmap, graphics, imgWidth, imgHeight
     If SmoothingMode = True Then GdipSetSmoothingMode graphics, SmoothingModeAntiAlias
-    
+
     GdipDrawImageRect graphics, Image, 0, 0, imgWidth, imgHeight
     GdipDisposeImage Image
     SaveImageToPNG bitmap, imagePath
@@ -262,7 +264,7 @@ Public Function Resize(imagePath As String, Optional saveWidth As Long = 0&, Opt
 End Function
 
 'Parse the path from a string (includ / or \)
-Public Function ParsePath(sPath As String) As String
+Public Function ParsePath(ByVal sPath As String) As String
     Dim i As Integer
     For i = Len(sPath) To 1 Step -1
         If InStr(":\", Mid$(sPath, i, 1)) Or InStr(":/", Mid$(sPath, i, 1)) Then Exit For
@@ -271,7 +273,7 @@ Public Function ParsePath(sPath As String) As String
 End Function
 
 'Parse the file name from a string (include extension)
-Public Function ParseFileName(sFileIn As String) As String
+Public Function ParseFileName(ByVal sFileIn As String) As String
     Dim i As Integer
     For i = Len(sFileIn) To 1 Step -1
         If InStr("\", Mid$(sFileIn, i, 1)) Or InStr("/", Mid$(sFileIn, i, 1)) Then Exit For
@@ -281,13 +283,13 @@ End Function
 
 'Parse the prefix from the file name (remove the extension)
 Public Function GetFileName(ByVal fileName As String) As String
-      Dim DotIndex As Long
-      DotIndex = InStrRev(fileName, ".")
-      If DotIndex = 0 Then
+    Dim DotIndex As Long
+    DotIndex = InStrRev(fileName, ".")
+    If DotIndex = 0 Then
         GetFileName = fileName
-      Else
+    Else
         GetFileName = Left(fileName, DotIndex - 1)
-      End If
+    End If
 End Function
 
 'Parse the extension from the file name (eg. .png .txt ....)
@@ -354,39 +356,39 @@ End Sub
 
 'Translate a form
 Public Sub TranslateForm(oForm As Form)
-  Dim oCNTRL As control
-  ' The collection holding the Key, Text pairs
-  If Language Is Nothing Then Exit Sub
-  On Error Resume Next
-  ' The caption of the form
-  oForm.Caption = Language.Item(oForm.Name & ".caption")
-  ' Get the caption and tooltiptext for the controls
-  For Each oCNTRL In oForm.Controls
-    TranslateControl oCNTRL, oForm.Name
-  Next
+    Dim oCNTRL As control
+    ' The collection holding the Key, Text pairs
+    If Language Is Nothing Then Exit Sub
+    On Error Resume Next
+    ' The caption of the form
+    oForm.Caption = Language.Item(oForm.Name & ".caption")
+    ' Get the caption and tooltiptext for the controls
+    For Each oCNTRL In oForm.Controls
+        TranslateControl oCNTRL, oForm.Name
+    Next
 End Sub
 
 'Translate the properties of a control based on the language information in the resource file,
 'including Caption, ToolTipText, and Text
 Public Sub TranslateControl(oCNTRL As control, sMainKey As String)
-  Dim sKey As String, sValue As String
-  Dim ctrlIndex As Integer
-  ' The collection holding the Key, Text pairs
-  If Language Is Nothing Then Exit Sub
-  On Error Resume Next
-  sKey = oCNTRL.Name
-  ctrlIndex = oCNTRL.Index
-  If Err.Number = 0 Then sKey = sKey & "-" & ctrlIndex
-  ' The Caption
-  sValue = ""
-  sValue = Language.Item(sMainKey & "." & sKey & ".Caption")
-  If Len(sValue) > 0 Then oCNTRL.Caption = sValue
-  ' The ToolTipText
-  sValue = ""
-  sValue = Language.Item(sMainKey & "." & sKey & ".ToolTipText")
-  If Len(sValue) > 0 Then oCNTRL.ToolTipText = sValue
+    Dim sKey As String, sValue As String
+    Dim ctrlIndex As Integer
+    ' The collection holding the Key, Text pairs
+    If Language Is Nothing Then Exit Sub
+    On Error Resume Next
+    sKey = oCNTRL.Name
+    ctrlIndex = oCNTRL.Index
+    If Err.Number = 0 Then sKey = sKey & "-" & ctrlIndex
+    ' The Caption
+    sValue = ""
+    sValue = Language.Item(sMainKey & "." & sKey & ".Caption")
+    If Len(sValue) > 0 Then oCNTRL.Caption = sValue
+    ' The ToolTipText
+    sValue = ""
+    sValue = Language.Item(sMainKey & "." & sKey & ".ToolTipText")
+    If Len(sValue) > 0 Then oCNTRL.ToolTipText = sValue
     ' The Text
-  sValue = ""
-  sValue = Language.Item(sMainKey & "." & sKey & ".Text")
-  If Len(sValue) > 0 Then oCNTRL.Text = sValue
+    sValue = ""
+    sValue = Language.Item(sMainKey & "." & sKey & ".Text")
+    If Len(sValue) > 0 Then oCNTRL.Text = sValue
 End Sub

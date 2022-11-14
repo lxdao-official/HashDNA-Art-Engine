@@ -309,7 +309,7 @@ Private Sub cmdUpdateMeta_Click()
 End Sub
 
 'Update the baseURL of the images (the URL or ipfs CID of the images folder)
-Private Sub updateBaseURL(jsonDir As String)
+Private Sub updateBaseURL(ByVal jsonDir As String)
     Dim k As Long, fn As Integer
     Dim tempName As String
     Dim IsSolana As Boolean
@@ -348,7 +348,7 @@ nextJson:
 End Sub
 
 'Update the metadata information in json files according to the setting content.
-Private Sub updateAll(jsonDir As String)
+Private Sub updateAll(ByVal jsonDir As String)
     Dim i As Long, j As Long, k As Long, fn As Integer
     Dim tempName As String
     Dim tempJB As JsonBag
@@ -417,6 +417,8 @@ Private Sub cmdFixNameNumber_Click()
         showTips Language.Item("Tips23")
         Exit Sub
     End If
+    showTips Language.Item("Tips24")
+    DoEvents
     'Public.bas Sub
     InitJB
     'Read all json files in the json folder and put the number part of the name into an array.
@@ -505,7 +507,7 @@ Private Sub cmdResize_Click()
     End If
 End Sub
 
-Private Sub showTips(Str As String)
+Private Sub showTips(ByVal Str As String)
     picTips.Cls
     picTips.CurrentX = 0
     picTips.CurrentY = (picTips.ScaleHeight - picTips.TextHeight(Str)) / 2
