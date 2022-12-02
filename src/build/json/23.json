@@ -1,0 +1,44 @@
+{
+  "name":"Blooooock #23",
+  "description":"Blocking!",
+  "image":"ipfs://YourImagesCID/23.png",
+  "attributes":[
+    {
+      "trait_type":"background",
+      "value":"red"
+    },
+    {
+      "trait_type":"A4paper",
+      "value":"BY15"
+    },
+    {
+      "trait_type":"type",
+      "value":"plain mfer"
+    },
+    {
+      "trait_type":"eyes",
+      "value":"regular eyes"
+    },
+    {
+      "trait_type":"mouth",
+      "value":"flat"
+    },
+    {
+      "trait_type":"smoke",
+      "value":"cig white"
+    },
+    {
+      "trait_type":"chain",
+      "value":"silver chain"
+    },
+    {
+      "trait_type":"hair",
+      "value":"long hair yellow"
+    },
+    {
+      "trait_type":"headphones",
+      "value":"black headphones"
+    }
+  ],
+  "compiler":"HashDNA Art Engine"
+}

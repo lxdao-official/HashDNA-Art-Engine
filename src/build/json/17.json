@@ -1,0 +1,48 @@
+{
+  "name":"Blooooock #17",
+  "description":"Blocking!",
+  "image":"ipfs://YourImagesCID/17.png",
+  "attributes":[
+    {
+      "trait_type":"background",
+      "value":"green"
+    },
+    {
+      "trait_type":"A4paper",
+      "value":"BY10"
+    },
+    {
+      "trait_type":"type",
+      "value":"plain mfer"
+    },
+    {
+      "trait_type":"eyes",
+      "value":"purple shades"
+    },
+    {
+      "trait_type":"mouth",
+      "value":"flat"
+    },
+    {
+      "trait_type":"smoke",
+      "value":"cig black"
+    },
+    {
+      "trait_type":"4_20 watch",
+      "value":"sub bat (blue--black)"
+    },
+    {
+      "trait_type":"shirt",
+      "value":"hoodie down white"
+    },
+    {
+      "trait_type":"headphones",
+      "value":"white headphones"
+    },
+    {
+      "trait_type":"hat over headphones",
+      "value":"cowboy hat"
+    }
+  ],
+  "compiler":"HashDNA Art Engine"
+}

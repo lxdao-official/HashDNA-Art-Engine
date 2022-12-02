@@ -1,0 +1,32 @@
+{
+  "name":"Blooooock #9",
+  "description":"Blocking!",
+  "image":"ipfs://YourImagesCID/9.png",
+  "attributes":[
+    {
+      "trait_type":"background",
+      "value":"red"
+    },
+    {
+      "trait_type":"A4paper",
+      "value":"BY12"
+    },
+    {
+      "trait_type":"type",
+      "value":"plain mfer"
+    },
+    {
+      "trait_type":"eyes",
+      "value":"regular eyes"
+    },
+    {
+      "trait_type":"mouth",
+      "value":"smile"
+    },
+    {
+      "trait_type":"4_20 watch",
+      "value":"sub turquoise"
+    }
+  ],
+  "compiler":"HashDNA Art Engine"
+}

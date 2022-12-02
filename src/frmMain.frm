@@ -359,8 +359,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '********************************************************************
 '
-'                   HashDNA Art Engine v1.2.0
-'                          2022-11-14
+'                   HashDNA Art Engine v1.2.1
+'                          2022-12-01
 '
 '   This software is designed to help artists generate 10K images
 '   freely and easily, without programming knowledge. It refers to
@@ -818,7 +818,7 @@ Private Sub cmdStart_Click()
     Dim layerConfigIndex As Long
     Dim editionCount As Long
     Dim fileName As String
-    Dim i As Long, j As Long, k As Long, maxSize As Long
+    Dim i As Long, j As Long, k As Long, maxSize As Double
     Dim failedCount As Long
     Dim allErrInfo As String
     Dim startNumber As Long

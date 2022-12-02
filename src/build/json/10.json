@@ -1,0 +1,52 @@
+{
+  "name":"Blooooock #10",
+  "description":"Blocking!",
+  "image":"ipfs://YourImagesCID/10.png",
+  "attributes":[
+    {
+      "trait_type":"background",
+      "value":"orange"
+    },
+    {
+      "trait_type":"A4paper",
+      "value":"BY02"
+    },
+    {
+      "trait_type":"type",
+      "value":"charcoal mfer"
+    },
+    {
+      "trait_type":"eyes",
+      "value":"regular eyes"
+    },
+    {
+      "trait_type":"mouth",
+      "value":"smile"
+    },
+    {
+      "trait_type":"smoke",
+      "value":"cig black"
+    },
+    {
+      "trait_type":"beard",
+      "value":"full beard"
+    },
+    {
+      "trait_type":"4_20 watch",
+      "value":"sub cola (blue--red)"
+    },
+    {
+      "trait_type":"shirt",
+      "value":"hoodie down white"
+    },
+    {
+      "trait_type":"hair",
+      "value":"long hair black"
+    },
+    {
+      "trait_type":"headphones",
+      "value":"green headphones"
+    }
+  ],
+  "compiler":"HashDNA Art Engine"
+}

@@ -1,0 +1,40 @@
+{
+  "name":"Blooooock #7",
+  "description":"Blocking!",
+  "image":"ipfs://YourImagesCID/7.png",
+  "attributes":[
+    {
+      "trait_type":"background",
+      "value":"orange"
+    },
+    {
+      "trait_type":"A4paper",
+      "value":"BY03"
+    },
+    {
+      "trait_type":"type",
+      "value":"plain mfer"
+    },
+    {
+      "trait_type":"eyes",
+      "value":"regular eyes"
+    },
+    {
+      "trait_type":"mouth",
+      "value":"flat"
+    },
+    {
+      "trait_type":"beard",
+      "value":"full beard"
+    },
+    {
+      "trait_type":"4_20 watch",
+      "value":"sub blue"
+    },
+    {
+      "trait_type":"headphones",
+      "value":"black headphones"
+    }
+  ],
+  "compiler":"HashDNA Art Engine"
+}
