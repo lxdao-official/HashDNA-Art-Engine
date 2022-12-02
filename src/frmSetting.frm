@@ -3,8 +3,8 @@ Begin VB.Form frmSetting
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Setting"
    ClientHeight    =   9795
-   ClientLeft      =   1365
-   ClientTop       =   1140
+   ClientLeft      =   5010
+   ClientTop       =   2055
    ClientWidth     =   10665
    Icon            =   "frmSetting.frx":0000
    LinkTopic       =   "Form1"
@@ -14,7 +14,7 @@ Begin VB.Form frmSetting
    ScaleWidth      =   10665
    ShowInTaskbar   =   0   'False
    Begin VB.Frame FrameCharSettings 
-      Caption         =   "Special characters Setting"
+      Caption         =   "Special Characters Setting"
       Height          =   2655
       Left            =   6960
       TabIndex        =   51
@@ -23,6 +23,7 @@ Begin VB.Form frmSetting
       Width           =   3255
       Begin VB.TextBox txtReplace 
          Alignment       =   2  'Center
+         Enabled         =   0   'False
          Height          =   375
          Index           =   2
          Left            =   360
@@ -33,6 +34,7 @@ Begin VB.Form frmSetting
       End
       Begin VB.TextBox txtSign 
          Alignment       =   2  'Center
+         Enabled         =   0   'False
          Height          =   375
          Index           =   2
          Left            =   1920
@@ -43,6 +45,7 @@ Begin VB.Form frmSetting
       End
       Begin VB.TextBox txtReplace 
          Alignment       =   2  'Center
+         Enabled         =   0   'False
          Height          =   375
          Index           =   1
          Left            =   360
@@ -59,34 +62,36 @@ Begin VB.Form frmSetting
          TabIndex        =   57
          Tag             =   "1"
          Top             =   360
-         Value           =   1  'Checked
          Width           =   2655
       End
       Begin VB.TextBox txtSign 
          Alignment       =   2  'Center
+         Enabled         =   0   'False
          Height          =   375
          Index           =   1
          Left            =   1920
          TabIndex        =   54
-         Text            =   "_SLASH_"
+         Text            =   "_S_"
          ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
          Top             =   1440
          Width           =   975
       End
       Begin VB.TextBox txtSign 
          Alignment       =   2  'Center
+         Enabled         =   0   'False
          Height          =   375
          Index           =   0
          Left            =   1920
          TabIndex        =   53
          Tag             =   "01"
-         Text            =   "_COLONS_"
+         Text            =   "_C_"
          ToolTipText     =   "The sign in the file name."
          Top             =   960
          Width           =   975
       End
       Begin VB.TextBox txtReplace 
          Alignment       =   2  'Center
+         Enabled         =   0   'False
          Height          =   375
          Index           =   0
          Left            =   360
@@ -97,34 +102,37 @@ Begin VB.Form frmSetting
          Top             =   960
          Width           =   975
       End
-      Begin VB.Label Label1 
+      Begin VB.Label lblSign 
          Alignment       =   2  'Center
          BackStyle       =   0  'Transparent
          Caption         =   ">>"
+         ForeColor       =   &H80000011&
          Height          =   330
          Index           =   2
          Left            =   1440
          TabIndex        =   60
          Tag             =   "1"
-         Top             =   1965
+         Top             =   2040
          Width           =   495
       End
-      Begin VB.Label Label1 
+      Begin VB.Label lblSign 
          Alignment       =   2  'Center
          BackStyle       =   0  'Transparent
          Caption         =   ">>"
+         ForeColor       =   &H80000011&
          Height          =   330
          Index           =   1
          Left            =   1440
          TabIndex        =   56
          Tag             =   "1"
-         Top             =   1485
+         Top             =   1560
          Width           =   495
       End
-      Begin VB.Label Label1 
+      Begin VB.Label lblSign 
          Alignment       =   2  'Center
          BackStyle       =   0  'Transparent
          Caption         =   ">>"
+         ForeColor       =   &H80000011&
          Height          =   330
          Index           =   0
          Left            =   1440
@@ -716,8 +724,22 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Option Explicit
+'Copyright 2022 LXDAO
 
+'This file is part of HashDNA Art Eengine.
+'
+'HashDNA Art Eengine is free software: you can redistribute it and/or modify it under the terms
+'of the'GNU General Public License as published by the Free Software Foundation, either
+'version 3 of the License, or (at your option) any later version.
+'
+'HashDNA Art Eengine is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+'without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+'the GNU General Public License for more details.
+'
+'You should have received a copy of the GNU General Public License along with Foobar. If not,
+'see <https://www.gnu.org/licenses/>.
+
+Option Explicit
 Private Sub Form_Load()
     TranslateForm Me
     cmdLoadSetting_Click
@@ -952,11 +974,13 @@ Private Sub chkReplace_Click()
     Dim i As Integer
     If chkReplace.Value = Unchecked Then
         For i = 0 To txtReplace.UBound
+                lblSign(i).ForeColor = &H80000011
                 txtReplace(i).Enabled = False
                 txtSign(i).Enabled = False
         Next i
     ElseIf chkReplace.Value = Checked Then
         For i = 0 To txtReplace.UBound
+            lblSign(i).ForeColor = &H80000012
             txtReplace(i).Enabled = True
             txtSign(i).Enabled = True
         Next i

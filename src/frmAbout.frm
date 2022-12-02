@@ -3,8 +3,8 @@ Begin VB.Form frmAbout
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About"
    ClientHeight    =   3840
-   ClientLeft      =   3075
-   ClientTop       =   1530
+   ClientLeft      =   6585
+   ClientTop       =   4875
    ClientWidth     =   7545
    ClipControls    =   0   'False
    Icon            =   "frmAbout.frx":0000
@@ -128,6 +128,21 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'Copyright 2022 LXDAO
+
+'This file is part of HashDNA Art Eengine.
+'
+'HashDNA Art Eengine is free software: you can redistribute it and/or modify it under the terms
+'of the'GNU General Public License as published by the Free Software Foundation, either
+'version 3 of the License, or (at your option) any later version.
+'
+'HashDNA Art Eengine is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+'without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+'the GNU General Public License for more details.
+'
+'You should have received a copy of the GNU General Public License along with Foobar. If not,
+'see <https://www.gnu.org/licenses/>.
+
 Option Explicit
 
 Private Sub cmdCopyWalletAddress_Click()

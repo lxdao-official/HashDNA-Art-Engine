@@ -1,0 +1,20 @@
+[
+  {
+    "typeName":"GirlPunks",
+    "displayName":"GirlPunks",
+    "typeSize":50,
+    "layersSize":10,
+    "layersOrder":[
+      "Mouth Prop",
+      "Necklace",
+      "Lips",
+      "Nose",
+      "Blemishes",
+      "Eyewear",
+      "Headwear",
+      "Earring",
+      "Skin Tone",
+      "Background*"
+    ]
+  }
+]
