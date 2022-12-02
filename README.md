@@ -2,8 +2,8 @@
 
 
 
-                   HashDNA Art Engine v1.2.0
-                          2022-11-14
+                   HashDNA Art Engine v1.2.1
+                          2022-12-01
 
    This software is designed to help artists generate 10K images
    freely and easily, without programming knowledge. It refers to
