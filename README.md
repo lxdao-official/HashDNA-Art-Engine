@@ -12,6 +12,10 @@
 
 References:
 
+   HashDNA Art Engine Demo: https://youtu.be/dP9KyMf6CGs
+   
+   HashDNA Art Engine tutorial(Chinese):https://youtu.be/zt9KcdhBcwk
+
    https://lxdao.io
    
    https://github.com/HashLips
