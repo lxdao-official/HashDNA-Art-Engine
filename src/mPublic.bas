@@ -50,7 +50,7 @@ Public layersDir As String
 Public JB As JsonBag
 Public Language As JsonBag
 Public Const Compiler As String = "HashDNA Art Engine"
-Public Const ENS As String = "HashDNA.eth"
+Public Const ENS As String = "hashdna.eth"
 Public Const WalletAddress As String = "0x033d845894Fbed101BaE4916Ec8F872B5a5b06cd"
 
 'Build BUILD, IMAGES and JSON folder in app.path.

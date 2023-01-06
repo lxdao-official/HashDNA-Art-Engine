@@ -32,7 +32,7 @@ Begin VB.Form frmAbout
       ClipControls    =   0   'False
       Height          =   540
       Left            =   240
-      Picture         =   "frmAbout.frx":7E6A
+      Picture         =   "frmAbout.frx":7F6A
       ScaleHeight     =   337.12
       ScaleMode       =   0  'User
       ScaleWidth      =   337.12
@@ -59,7 +59,7 @@ Begin VB.Form frmAbout
       Width           =   5085
    End
    Begin VB.Label lblWebsite 
-      Caption         =   "https://lxdao.io"
+      Caption         =   "https://hashdna.art"
       BeginProperty Font 
          Name            =   "ËÎÌו"
          Size            =   9
@@ -79,7 +79,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgDonate 
       Height          =   2175
       Left            =   5160
-      Picture         =   "frmAbout.frx":FCD4
+      Picture         =   "frmAbout.frx":FED4
       Stretch         =   -1  'True
       Tag             =   "01"
       ToolTipText     =   "Scan the wallet QR code"
@@ -160,7 +160,6 @@ Private Sub Form_Load()
     lblVersion.Caption = lblVersion.Caption & " " & App.Major & "." & App.Minor & "." & App.Revision
     lblTitle.Caption = App.Title
     lblDonate.Caption = lblDonate.Caption & vbCrLf & vbCrLf & "ENS: " & ENS & vbCrLf & WalletAddress
-    'lblDescription.Caption = Description
 End Sub
 
 Private Sub lblDonate_Click()

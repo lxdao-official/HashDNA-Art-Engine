@@ -1,20 +1,28 @@
 [
   {
+    "typeName":"1of1",
+    "displayName":"1of1",
+    "typeSize":2,
+    "layersSize":2,
+    "layersOrder":[
+      "DoodleBlue.png",
+      "DoodleYellow.png"
+    ]
+  },
+  {
     "typeName":"GirlPunks",
     "displayName":"GirlPunks",
     "typeSize":50,
-    "layersSize":10,
+    "layersSize":8,
     "layersOrder":[
-      "Mouth Prop",
-      "Necklace",
-      "Lips",
-      "Nose",
-      "Blemishes",
       "Eyewear",
+      "Mouth Prop",
       "Headwear",
       "Earring",
+      "Necklace",
+      "Lips",
       "Skin Tone",
-      "Background*"
+      "Background"
     ]
   }
 ]

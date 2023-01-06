@@ -2,9 +2,9 @@
 
 
 
- **HashDNA Art Engine v2.0.0**
+ **HashDNA Art Engine v2.1.0**
 
- *2022-12-02*
+ *2023-01-06*
 
 This software is designed to help artists generate 10K images
 freely and easily, without programming knowledge. It refers to
@@ -30,7 +30,7 @@ References:
 
 
 ```
-Copyright 2022 LXDAO
+Copyright 2023 LXDAO
 
 This program is free software: you can redistribute it and/or modify it under the terms of 
 the GNU General Public License as published by the Free Software Foundation, either 

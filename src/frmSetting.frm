@@ -28,7 +28,6 @@ Begin VB.Form frmSetting
          Index           =   2
          Left            =   360
          TabIndex        =   61
-         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
          Top             =   1920
          Width           =   975
       End
@@ -39,7 +38,6 @@ Begin VB.Form frmSetting
          Index           =   2
          Left            =   1920
          TabIndex        =   59
-         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
          Top             =   1920
          Width           =   975
       End
@@ -51,7 +49,6 @@ Begin VB.Form frmSetting
          Left            =   360
          TabIndex        =   58
          Text            =   "/"
-         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
          Top             =   1440
          Width           =   975
       End
@@ -72,7 +69,6 @@ Begin VB.Form frmSetting
          Left            =   1920
          TabIndex        =   54
          Text            =   "_S_"
-         ToolTipText     =   "The image background color lightness must be a 0-100 number, , 100 is all white"
          Top             =   1440
          Width           =   975
       End
@@ -380,12 +376,11 @@ Begin VB.Form frmSetting
          Width           =   1575
       End
       Begin VB.CheckBox chkWhiteSpace 
-         Caption         =   "AddWhitespace"
+         Caption         =   "Format JSON"
          Height          =   375
          Left            =   2880
          TabIndex        =   30
          Tag             =   "11"
-         ToolTipText     =   "Format json"
          Top             =   360
          Value           =   1  'Checked
          Width           =   1575
@@ -442,7 +437,7 @@ Begin VB.Form frmSetting
          Left            =   1800
          TabIndex        =   8
          Tag             =   "01"
-         ToolTipText     =   $"frmSetting.frx":7E6A
+         ToolTipText     =   $"frmSetting.frx":7F6A
          Top             =   6240
          Width           =   3975
       End
@@ -482,7 +477,7 @@ Begin VB.Form frmSetting
          ScrollBars      =   2  'Vertical
          TabIndex        =   1
          Tag             =   "01"
-         ToolTipText     =   $"frmSetting.frx":7F02
+         ToolTipText     =   $"frmSetting.frx":8002
          Top             =   1560
          Width           =   3975
       End
@@ -920,6 +915,10 @@ End Sub
 
 Private Sub OptionNetwork_Click(Index As Integer)
     If Index = 0 Then
+        txtSolSymbol.BackColor = &H80000005
+        txtSolFee.BackColor = &H80000005
+        txtSolCreatorsAddress.BackColor = &H80000005
+        txtSolCreatorsShare.BackColor = &H80000005
         txtSolSymbol.Enabled = False
         txtSolFee.Enabled = False
         txtSolCreatorsAddress.Enabled = False

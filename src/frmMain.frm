@@ -11,6 +11,31 @@ Begin VB.Form frmMain
    MaxButton       =   0   'False
    ScaleHeight     =   8310
    ScaleWidth      =   13905
+   Begin VB.CommandButton cmdTop 
+      Caption         =   "--"
+      BeginProperty Font 
+         Name            =   "Consolas"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   7440
+      TabIndex        =   38
+      Tag             =   "01"
+      ToolTipText     =   "Move to the top"
+      Top             =   840
+      Width           =   735
+   End
+   Begin VB.Timer Timer1 
+      Enabled         =   0   'False
+      Interval        =   100
+      Left            =   7920
+      Top             =   7080
+   End
    Begin VB.Frame Frame1 
       Height          =   1575
       Left            =   8640
@@ -47,9 +72,9 @@ Begin VB.Form frmMain
    End
    Begin VB.ComboBox cboLanguages 
       Height          =   300
-      ItemData        =   "frmMain.frx":7E6A
+      ItemData        =   "frmMain.frx":7F6A
       Left            =   11400
-      List            =   "frmMain.frx":7E6C
+      List            =   "frmMain.frx":7F6C
       Sorted          =   -1  'True
       Style           =   2  'Dropdown List
       TabIndex        =   12
@@ -159,6 +184,63 @@ Begin VB.Form frmMain
       Tag             =   "1"
       Top             =   240
       Width           =   13335
+      Begin VB.CommandButton cmdDelWeight 
+         Caption         =   "#10"
+         BeginProperty Font 
+            Name            =   "Consolas"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   -1  'True
+         EndProperty
+         Height          =   375
+         Left            =   5880
+         TabIndex        =   39
+         Tag             =   "01"
+         ToolTipText     =   "Delete the elements weight of the selected layer"
+         Top             =   4200
+         Width           =   1215
+      End
+      Begin VB.CommandButton cmdBottom 
+         Caption         =   "--"
+         BeginProperty Font 
+            Name            =   "Consolas"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   7200
+         TabIndex        =   37
+         Tag             =   "01"
+         ToolTipText     =   "Move to the bottom"
+         Top             =   1920
+         Width           =   735
+      End
+      Begin VB.CommandButton cmdAddWeight 
+         Caption         =   "#10"
+         BeginProperty Font 
+            Name            =   "Consolas"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   4320
+         TabIndex        =   36
+         Tag             =   "01"
+         ToolTipText     =   "Set the elements weight of the selected layer to 10"
+         Top             =   4200
+         Width           =   1215
+      End
       Begin VB.PictureBox picPreview 
          FillColor       =   &H008080FF&
          Height          =   4575
@@ -193,7 +275,7 @@ Begin VB.Form frmMain
          Left            =   7200
          TabIndex        =   29
          Tag             =   "01"
-         Top             =   1200
+         Top             =   1440
          Width           =   735
       End
       Begin VB.CommandButton cmdUpLayer 
@@ -211,7 +293,7 @@ Begin VB.Form frmMain
          Left            =   7200
          TabIndex        =   28
          Tag             =   "01"
-         Top             =   600
+         Top             =   960
          Width           =   735
       End
       Begin VB.CommandButton cmdDownType 
@@ -229,7 +311,7 @@ Begin VB.Form frmMain
          Left            =   3240
          TabIndex        =   27
          Tag             =   "01"
-         Top             =   1200
+         Top             =   1440
          Width           =   735
       End
       Begin VB.CommandButton cmdUpType 
@@ -247,7 +329,7 @@ Begin VB.Form frmMain
          Left            =   3240
          TabIndex        =   26
          Tag             =   "01"
-         Top             =   600
+         Top             =   960
          Width           =   735
       End
       Begin VB.CommandButton cmdDelType 
@@ -266,7 +348,7 @@ Begin VB.Form frmMain
          TabIndex        =   25
          Tag             =   "01"
          ToolTipText     =   "Delete one type"
-         Top             =   2760
+         Top             =   3240
          Width           =   735
       End
       Begin VB.CommandButton cmdCopyType 
@@ -285,7 +367,7 @@ Begin VB.Form frmMain
          TabIndex        =   24
          Tag             =   "01"
          ToolTipText     =   "Copy the selected type"
-         Top             =   2160
+         Top             =   2640
          Width           =   735
       End
       Begin VB.CommandButton cmdReload 
@@ -294,7 +376,7 @@ Begin VB.Form frmMain
          Left            =   1920
          TabIndex        =   4
          Tag             =   "11"
-         ToolTipText     =   "Load layer configurations by folder structure or Config.json file"
+         ToolTipText     =   "Load layer configurations by folder structure"
          Top             =   4680
          Width           =   1215
       End
@@ -314,24 +396,24 @@ Begin VB.Form frmMain
          TabIndex        =   20
          Tag             =   "01"
          ToolTipText     =   "bypass DNA"
-         Top             =   2160
+         Top             =   2640
          Width           =   735
       End
-      Begin VB.CommandButton cmdDelConfigFiles 
-         Caption         =   "Delete"
+      Begin VB.CommandButton cmdImport 
+         Caption         =   "Import"
          Height          =   495
          Left            =   360
          TabIndex        =   5
          Tag             =   "11"
-         ToolTipText     =   "Delete Config.json file"
+         ToolTipText     =   "Import configurations from Config.json file"
          Top             =   4680
          Width           =   1215
       End
       Begin VB.ListBox ListLayer 
          Height          =   3480
-         ItemData        =   "frmMain.frx":7E6E
+         ItemData        =   "frmMain.frx":7F6E
          Left            =   4320
-         List            =   "frmMain.frx":7E70
+         List            =   "frmMain.frx":7F70
          TabIndex        =   16
          Top             =   600
          Width           =   2775
@@ -352,25 +434,25 @@ Begin VB.Form frmMain
          TabIndex        =   15
          Tag             =   "01"
          ToolTipText     =   "Delete one layer"
-         Top             =   2760
+         Top             =   3240
          Width           =   735
       End
       Begin VB.ListBox ListType 
          Height          =   3480
-         ItemData        =   "frmMain.frx":7E72
+         ItemData        =   "frmMain.frx":7F72
          Left            =   360
-         List            =   "frmMain.frx":7E74
+         List            =   "frmMain.frx":7F74
          TabIndex        =   14
          Top             =   600
          Width           =   2775
       End
-      Begin VB.CommandButton cmdPreview 
-         Caption         =   "Preview"
+      Begin VB.CommandButton cmdReloadLayer 
+         Caption         =   "Reload"
          Height          =   495
          Left            =   4320
          TabIndex        =   2
          Tag             =   "11"
-         ToolTipText     =   "Preview a sample of the picture with the current layer order"
+         ToolTipText     =   "Load layer name by folder structure"
          Top             =   4680
          Width           =   1215
       End
@@ -394,16 +476,6 @@ Begin VB.Form frmMain
          ToolTipText     =   "Modify the number of type"
          Top             =   4200
          Width           =   735
-      End
-      Begin VB.Label lblBottonLayer 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Bottom Layer"
-         Height          =   255
-         Left            =   4320
-         TabIndex        =   36
-         Tag             =   "1"
-         Top             =   4200
-         Width           =   2775
       End
       Begin VB.Label lblPicture 
          Caption         =   "Preview Zone"
@@ -468,25 +540,24 @@ Attribute VB_Exposed = False
 
 '********************************************************************
 '
-'                   HashDNA Art Engine v2.0.0
-'                          2022-12-02
+'                   HashDNA Art Engine v2.1.0
+'                          2022-12-11
 '
-'   This software is designed to help artists generate 10K images
-'   freely and easily, without programming knowledge. It refers to
-'   a part of the HashLips art engine code, and the example material
+'   This software is designed to help artists freely and easily
+'   generate 10K images without programming knowledge. It references
+'   the design of the HashLips art engine, and the example material
 '   comes from cryptopunksnotdead, thanks!
 '
 '   References:
+'   http://hashdna.art
 '   https://lxdao.io
-'   https://github.com/HashLips
-'   https://github.com/cryptopunksnotdead
 '
 '                                                     by LXDAO
 '
 '********************************************************************
 
 Option Explicit
-Const oneArtFolderName As String = "1of1"
+Const oneArtFolderName As String = "1of1" 'lowercase
 Const signSkip As String = "_SKIP_"
 Const signOnly As String = "_ONLY_"
 Const rarityDelimiter As String = "#"
@@ -509,6 +580,9 @@ Private Enum Execution_State
     ES_CONTINUOUS = &H80000000
 End Enum
 Private Declare Sub SetThreadExecutionState Lib "kernel32" (ByVal esFlags As Long)
+Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
+
+
 
 Private Sub Form_Load()
     Me.Caption = App.Title & " V" & App.Major & "." & App.Minor & "." & App.Revision
@@ -516,7 +590,7 @@ Private Sub Form_Load()
     InitGDIPlus
     BuildSetup          'public sub in Public.bas
     GetLanguagesList    'public sub in Public.bas
-    checkLayers
+    If checkLayers = True Then getLayerConfigurations
 End Sub
 'Select Language
 Private Sub cboLanguages_Click()
@@ -551,111 +625,84 @@ End Sub
 '               Setting layer Configurations
 '
 '**********************************************************
-Private Sub checkLayers()
-    Dim configFile As String
-    Dim orderFile As String
-    Dim foldername As String
-    Dim typeFolders() As String
-    Dim tempS As String
-    Dim i As Long, j As Long, k As Long, n As Long
+Private Function checkLayers() As Boolean
     layersDir = basePath & "\layers"
-    configFile = layersDir & "\config.txt"
     If Dir(layersDir, vbDirectory) = "" Then
         MkDir layersDir
+        MkDir layersDir & "\1of1"
+        MkDir layersDir & "\YourNFT"
         showTips Language.Item("Tips1")
         Shell "explorer " & layersDir, vbNormalFocus
-        Exit Sub
+        checkLayers = False
+        Exit Function
     End If
-    Call getLayerConfigurations
-End Sub
+    If Dir(layersDir & "\1of1", vbDirectory) = "" Then MkDir layersDir & "\1of1"
+    checkLayers = True
+End Function
 
 'Get all combined layer configuration from layers folder structure or config.txt file, including layer order, 1/1 special folders, etc.
 Private Sub getLayerConfigurations()
+    If Dir(layersDir & "\Config.json") <> "" Then
+        importConfig
+    Else
+        reloadDir
+    End If
+End Sub
+
+'Get all combined layer configuration from Config.json file, including layer order, 1/1 special folders, etc.
+Private Sub importConfig()
     Dim configFile As String
-    Dim foldername As String, n As Long
-    Dim tempS As String
+    Dim foldername As String
     Dim fn As Integer
     Dim i As Long, j As Long, k As Long
     configFile = layersDir & "\Config.json"
+    
+    If Dir(configFile) = "" Then
+        reloadDir
+        Exit Sub
+    End If
+    
     k = 0
     ListType.Clear
     
-    'Get type information from Config.json file
-    If Dir(configFile) <> "" Then
-        On Error GoTo ErrorHandler
-        Set config = New JsonBag
-        config.Whitespace = True
-        fn = FreeFile
-        'On Error Resume Next
-        Open configFile For Input As #fn
-        config.JSON = StrConv(InputB(LOF(fn), fn), vbUnicode)
-        Close #fn
-        'Err.Clear
-        'If config Is Nothing Then Exit Sub
-        ReDim layerConfigurations(config.Count - 1)
-        For i = 1 To config.Count
-            With config.Item(i)
-                layerConfigurations(k).typeName = .Item("typeName")
-                layerConfigurations(k).displayName = .Item("displayName")
-                layerConfigurations(k).typeSize = .Item("typeSize")
-                layerConfigurations(k).layersSize = .Item("layersSize")
-                If layerConfigurations(k).layersSize > 0 Then
-                    ReDim layerConfigurations(k).layersOrder(.Item("layersOrder").Count - 1)
-                    For j = 1 To .Item("layersOrder").Count
-                        layerConfigurations(k).layersOrder(j - 1) = .Item("layersOrder")(j)
-                    Next j
-                    'List configurations on form.
-                    ListType.AddItem layerConfigurations(k).typeSize & vbTab & layerConfigurations(k).displayName
-                    k = k + 1
-                End If
-            End With
-        Next i
-        
-        'Close the error trap.
-        On Error GoTo 0
-        'catch error
-        If k = 0 Then GoTo ErrorHandler
-    Else
-        foldername = Dir(layersDir & "\", vbDirectory)
-        Do While foldername <> ""
-            If foldername <> "." And foldername <> ".." And (GetAttr(layersDir & "\" & foldername) And vbDirectory) = vbDirectory Then
-                ReDim Preserve layerConfigurations(k)
-                layerConfigurations(k).typeName = foldername
-                layerConfigurations(k).displayName = foldername
-                layerConfigurations(k).typeSize = 0
+    On Error GoTo ErrorHandler
+    Set config = New JsonBag
+    config.Whitespace = True
+    fn = FreeFile
+    Open configFile For Input As #fn
+    config.JSON = StrConv(InputB(LOF(fn), fn), vbUnicode)
+    Close #fn
+    ReDim layerConfigurations(config.Count - 1)
+    For i = 1 To config.Count
+        With config.Item(i)
+            layerConfigurations(k).typeName = .Item("typeName")
+            layerConfigurations(k).displayName = .Item("displayName")
+            layerConfigurations(k).typeSize = .Item("typeSize")
+            layerConfigurations(k).layersSize = .Item("layersSize")
+            If layerConfigurations(k).layersSize > 0 Then
+                ReDim layerConfigurations(k).layersOrder(.Item("layersOrder").Count - 1)
+                For j = 1 To .Item("layersOrder").Count
+                    layerConfigurations(k).layersOrder(j - 1) = .Item("layersOrder")(j)
+                Next j
+                'List configurations on form.
+                ListType.AddItem layerConfigurations(k).typeSize & vbTab & layerConfigurations(k).displayName
                 k = k + 1
             End If
-            foldername = Dir()
-        Loop
-        If k = 0 Then
-            showTips Language.Item("Tips2")
-            Shell "explorer " & layersDir, vbNormalFocus
-            Exit Sub
-        End If
-        
-        'Get layers order information:
-        For k = 0 To UBound(layerConfigurations)
-            foldername = layerConfigurations(k).typeName
-            'layer folders or 1/1 files
-            If LCase(foldername) = oneArtFolderName Then layerConfigurations(k).layersOrder = getSpecialFiles(layersDir & "\" & foldername) _
-            Else layerConfigurations(k).layersOrder = getLayersOrder(layersDir & "\" & foldername)
-            'Is the type folder empty?
-            If (CStr(Join(layerConfigurations(k).layersOrder, ""))) = "" Then
-                showTips foldername & " " & Language.Item("Tips3")
-                layerConfigurations(k).layersSize = 0
-            Else
-                layerConfigurations(k).layersSize = UBound(layerConfigurations(k).layersOrder) + 1
-            End If
-            'the number of 1/1 editions = the number of 1/1 files
-            If LCase(foldername) = oneArtFolderName Then layerConfigurations(k).typeSize = layerConfigurations(k).layersSize
-            'List configurations on form.
-            ListType.AddItem layerConfigurations(k).typeSize & vbTab & layerConfigurations(k).displayName
-        Next k
-    End If
+        End With
+    Next i
+    
+    'Close the error trap.
+    On Error GoTo 0
+    'catch error
+        If k = 0 Then GoTo ErrorHandler
     
     'Select the first type and the first layer
     If ListType.ListCount <> 0 Then ListType.ListIndex = 0
-    If ListLayer.ListCount <> 0 Then ListLayer.ListIndex = 0
+    If ListLayer.ListCount <> 0 Then
+        ListLayer.ListIndex = 0
+        'Delay previewing picture
+        Timer1.Enabled = True
+    End If
     Call getTotalEditions
     showTips Language.Item("Tips4")
     Exit Sub
@@ -663,6 +710,60 @@ ErrorHandler:
     Close
     showTips Language.Item("Tips5")
     Shell "explorer " & configFile, vbNormalFocus
+End Sub
+
+'Get all combined layer configuration from layers folder structure, 1/1 special folders, etc.
+Private Sub reloadDir()
+    Dim foldername As String
+    Dim k As Long
+    k = 0
+    ListType.Clear
+    
+    foldername = Dir(layersDir & "\", vbDirectory)
+    Do While foldername <> ""
+        If foldername <> "." And foldername <> ".." And (GetAttr(layersDir & "\" & foldername) And vbDirectory) = vbDirectory Then
+            ReDim Preserve layerConfigurations(k)
+            layerConfigurations(k).typeName = foldername
+            layerConfigurations(k).displayName = foldername
+            layerConfigurations(k).typeSize = 0
+            k = k + 1
+        End If
+        foldername = Dir()
+    Loop
+    If k = 0 Then
+        showTips Language.Item("Tips2")
+        Shell "explorer " & layersDir, vbNormalFocus
+        Exit Sub
+    End If
+    
+    'Get layers order information:
+    For k = 0 To UBound(layerConfigurations)
+        foldername = layerConfigurations(k).typeName
+        'layer folders or 1/1 files
+        If LCase(foldername) = oneArtFolderName Then layerConfigurations(k).layersOrder = getSpecialFiles(layersDir & "\" & foldername) _
+        Else layerConfigurations(k).layersOrder = getLayersOrder(layersDir & "\" & foldername)
+        'Is the type folder empty?
+        If (CStr(Join(layerConfigurations(k).layersOrder, ""))) = "" Then
+            showTips foldername & " " & Language.Item("Tips3")
+            layerConfigurations(k).layersSize = 0
+        Else
+            layerConfigurations(k).layersSize = UBound(layerConfigurations(k).layersOrder) + 1
+        End If
+        'the number of 1/1 editions = the number of 1/1 files
+        If LCase(foldername) = oneArtFolderName Then layerConfigurations(k).typeSize = layerConfigurations(k).layersSize
+        'List configurations on form.
+        ListType.AddItem layerConfigurations(k).typeSize & vbTab & layerConfigurations(k).displayName
+    Next k
+
+    'Select the first type and the first layer
+    If ListType.ListCount <> 0 Then ListType.ListIndex = 0
+    If ListLayer.ListCount <> 0 Then
+        ListLayer.ListIndex = 0
+        'Delay previewing picture
+        Timer1.Enabled = True
+    End If
+    Call getTotalEditions
+    showTips Language.Item("Tips4")
 End Sub
 
 'Get 1/1 files.
@@ -681,14 +782,12 @@ Private Function getSpecialFiles(ByVal typeDir As String) As String()
     getSpecialFiles = specialFiles
 End Function
 
-'Get the layers order from directory structure or order.txt file.
+'Get the layers order from directory structure.
 Private Function getLayersOrder(ByVal typeDir As String) As String()
     Dim foldername As String
-    Dim orderFile As String
     Dim layersOrder() As String
     Dim fn As Integer
     Dim k As Long
-    orderFile = typeDir & "\order.txt"
     k = 0
     foldername = Dir(typeDir & "\", vbDirectory)
     Do While foldername <> ""
@@ -713,7 +812,7 @@ Private Sub getTotalEditions()
     If Err.Number = 0 Then
         lblTotalEditions.Caption = totalEditions
     Else
-        lblTotalEditions.Caption = "Error!"
+        lblTotalEditions.Caption = Language.Item("Tips36")
         totalEditions = -1
         Err.Clear
     End If
@@ -729,9 +828,14 @@ Private Sub ListType_Click()
         ListLayer.AddItem layerConfigurations(ListType.ListIndex).layersOrder(i)
     Next i
     txtNumType = Split(ListType.Text, vbTab)(0)
-    'If ListType.ListCount <> 0 Then ListType.ListIndex = 0
     If ListLayer.ListCount <> 0 Then ListLayer.ListIndex = 0
-    cmdPreview_Click
+    DoEvents
+    previewPic
+End Sub
+
+Private Sub Timer1_Timer()
+    previewPic
+    Timer1.Enabled = False
 End Sub
 
 'Input how many images to generate for this type
@@ -779,10 +883,15 @@ Private Sub moveType(k As Long)
         layerConfigurations(oldIndex) = layerConfigurations(newIndex)
         layerConfigurations(newIndex) = temp
         s = ListType.Text
-        DoEvents
         ListType.RemoveItem oldIndex
         ListType.AddItem s, newIndex
+        DoEvents
         ListType.ListIndex = newIndex
+End Sub
+Private Sub cmdTop_Click()
+    If ListLayer.ListIndex > 0 Then
+        moveLayer -ListLayer.ListIndex
+    End If
 End Sub
 
 Private Sub cmdUpLayer_Click()
@@ -797,26 +906,39 @@ Private Sub cmdDownLayer_Click()
     End If
 End Sub
 
+Private Sub cmdBottom_Click()
+    If ListLayer.ListIndex <> -1 And ListLayer.ListIndex < ListLayer.ListCount - 1 Then
+        moveLayer ListLayer.ListCount - ListLayer.ListIndex - 1
+    End If
+End Sub
+
 'Change the order of layers
 Private Sub moveLayer(k As Long)
-    Dim oldIndex As Long, newIndex As Long, typeIndex As Long, temp As String
+    Dim i As Long, oldIndex As Long, newIndex As Long, typeIndex As Long, temp As String
     typeIndex = ListType.ListIndex
     oldIndex = ListLayer.ListIndex
     newIndex = oldIndex + k
-    temp = layerConfigurations(typeIndex).layersOrder(oldIndex)
-    layerConfigurations(typeIndex).layersOrder(oldIndex) = layerConfigurations(typeIndex).layersOrder(newIndex)
-    layerConfigurations(typeIndex).layersOrder(newIndex) = temp
+    
+'    temp = layerConfigurations(typeIndex).layersOrder(oldIndex)
+'    layerConfigurations(typeIndex).layersOrder(oldIndex) = layerConfigurations(typeIndex).layersOrder(newIndex)
+'    layerConfigurations(typeIndex).layersOrder(newIndex) = temp
+    
     temp = ListLayer.Text
     ListLayer.RemoveItem oldIndex
     ListLayer.AddItem temp, newIndex
     ListLayer.ListIndex = newIndex
+    
+    For i = 0 To ListLayer.ListCount - 1
+        layerConfigurations(typeIndex).layersOrder(i) = ListLayer.list(i)
+    Next i
+    
     DoEvents
-    cmdPreview_Click
+    previewPic
 End Sub
 
 'Double click to preview the generated image.
 Private Sub ListLayer_DblClick()
-    cmdPreview_Click
+    previewPic
 End Sub
 
 'Copy a type
@@ -848,6 +970,7 @@ Private Sub cmdDelType_Click()
         layerConfigurations(i) = layerConfigurations(i + 1)
     Next i
     ReDim Preserve layerConfigurations(ListType.ListCount - 1)
+    DoEvents
     If k = 0 Then ListType.ListIndex = k Else ListType.ListIndex = k - 1
     Call getTotalEditions
 End Sub
@@ -868,7 +991,8 @@ Private Sub cmdDelLayer_Click()
         layerConfigurations(ListType.ListIndex).layersOrder(i) = ListLayer.list(i)
     Next i
     If k = 0 Then ListLayer.ListIndex = k Else ListLayer.ListIndex = k - 1
-    cmdPreview_Click
+    DoEvents
+    previewPic
 End Sub
 
 'Delete the selected layer if the DELETE key is pressed
@@ -881,7 +1005,7 @@ End Sub
 
 'Flag Bypass DNA
 Private Sub cmdBypassDNA_Click()
-    If ListLayer.SelCount = 0 Then Exit Sub
+    If ListLayer.SelCount = 0 Or LCase(layerConfigurations(ListType.ListIndex).typeName) = oneArtFolderName Then Exit Sub
     If Right(ListLayer.Text, 1) <> "*" Then
         ListLayer.list(ListLayer.ListIndex) = ListLayer.Text & "*"
     Else
@@ -890,25 +1014,68 @@ Private Sub cmdBypassDNA_Click()
     layerConfigurations(ListType.ListIndex).layersOrder(ListLayer.ListIndex) = ListLayer.Text
 End Sub
 
-'Delete the config.txt and order.txt files.
-Private Sub cmdDelConfigFiles_Click()
-    Close
-    If Dir(layersDir & "\Config.json") <> "" Then Kill layersDir & "\Config.json"
-    showTips Language.Item("Tips8")
-    On Error GoTo 0
+'Set files weight in one layer
+Private Sub cmdAddWeight_Click()
+    If ListLayer.SelCount = 0 Then Exit Sub
+    
+    Dim k As Long, a As Variant
+    Dim path As String, iName As String
+    k = 0
+    path = layersDir & "\" & layerConfigurations(ListType.ListIndex).typeName & "\" & Split(ListLayer.Text, "*")(0) & "\"
+
+    iName = Dir(path)
+    Do While iName <> ""
+        a = Split(GetFileName(iName), rarityDelimiter)
+        'InStr(iName, "#") = 0
+        If LCase(Right(iName, 4)) = ".png" And Not (UBound(a) <> 0 And IsNumeric(a(UBound(a)))) Then
+            DoEvents
+            Name path & iName As path & GetFileName(iName) & rarityDelimiter & "10.png"
+            showTips Language.Item("Tips26")
+            k = k + 1
+        End If
+        iName = Dir()
+    Loop
+    If k = 0 Then showTips Language.Item("Tips38")
+End Sub
+
+Private Sub cmdDelWeight_Click()
+    If ListLayer.SelCount = 0 Then Exit Sub
+    
+    Dim k As Long, a As Variant
+    Dim path As String, iName As String
+    k = 0
+    path = layersDir & "\" & layerConfigurations(ListType.ListIndex).typeName & "\" & Split(ListLayer.Text, "*")(0) & "\"
+
+    iName = Dir(path)
+    Do While iName <> ""
+        a = Split(GetFileName(iName), rarityDelimiter)
+        'InStr(iName, "#") = 0
+        If LCase(Right(iName, 4)) = ".png" And UBound(a) <> 0 And IsNumeric(a(UBound(a))) Then
+            DoEvents
+            Name path & iName As path & a(0) & ".png"
+            showTips Language.Item("Tips26")
+            k = k + 1
+        End If
+        iName = Dir()
+    Loop
+    If k = 0 Then showTips Language.Item("Tips38")
+End Sub
+
+'Import configurations from Config.json file
+Private Sub cmdImport_Click()
+    If checkLayers = True Then importConfig
 End Sub
 Private Sub cmdReload_Click()
-    Call checkLayers
+    If checkLayers = True Then reloadDir
 End Sub
 
 'Preview the image after setting the layer order
-Private Sub cmdPreview_Click()
-    showTips ""
+Private Sub previewPic()
     If ListType.ListCount = 0 Or ListLayer.ListCount = 0 Then
-        showTips Language.Item("Tips9")
+        'showTips Language.Item("Tips9")
         Exit Sub
     ElseIf ListType.ListIndex < 0 Then
-        showTips Language.Item("Tips10")
+        'showTips Language.Item("Tips10")
         Exit Sub
     End If
     Dim i As Long
@@ -916,6 +1083,7 @@ Private Sub cmdPreview_Click()
     Dim pngName As String
     Dim tempS As String
     On Error GoTo ErrorTips:
+    'showTips ""
     picPreview.Cls
     If LCase(layerConfigurations(ListType.ListIndex).typeName) = oneArtFolderName Then
         DrawPng layersDir & "\" & layerConfigurations(ListType.ListIndex).typeName & "\" & ListLayer.Text
@@ -933,6 +1101,66 @@ Private Sub cmdPreview_Click()
 ErrorTips:
     Close
     showTips Language.Item("Tips11")
+End Sub
+
+Private Sub cmdReloadLayer_Click()
+    If ListType.SelCount = 0 Then Exit Sub
+    
+    Dim configFile As String
+    Dim foldername As String
+    Dim tempS() As String
+    Dim fn As Integer
+    Dim i As Long, j As Long, k As Long, m As Long, n As Long
+    Dim nameExist As Boolean
+   
+    'Get layers order information:
+    k = ListType.ListIndex
+    tempS = layerConfigurations(k).layersOrder
+    foldername = layerConfigurations(k).typeName
+    'layer folders or 1/1 files
+    If LCase(foldername) = oneArtFolderName Then layerConfigurations(k).layersOrder = getSpecialFiles(layersDir & "\" & foldername) _
+    Else layerConfigurations(k).layersOrder = getLayersOrder(layersDir & "\" & foldername)
+    'Is the type folder empty?
+    If (CStr(Join(layerConfigurations(k).layersOrder, ""))) = "" Then
+        showTips foldername & " " & Language.Item("Tips3")
+        layerConfigurations(k).layersSize = 0
+    Else
+        layerConfigurations(k).layersSize = UBound(layerConfigurations(k).layersOrder) + 1
+    End If
+    'the number of 1/1 editions = the number of 1/1 files
+    If LCase(foldername) = oneArtFolderName Then layerConfigurations(k).typeSize = layerConfigurations(k).layersSize
+    
+    n = 0
+    For i = 0 To ListLayer.ListCount - 1
+        If i > ListLayer.ListCount - 1 - n Then Exit For
+        nameExist = False
+        For j = 0 To layerConfigurations(k).layersSize - 1
+            If Split(ListLayer.list(i), "*")(0) = layerConfigurations(k).layersOrder(j) Then
+                nameExist = True
+                Exit For
+            End If
+        Next j
+        If nameExist = False Then
+            ListLayer.RemoveItem i
+            n = n + 1
+            i = i - 1
+        End If
+    Next i
+    
+    For i = 0 To layerConfigurations(k).layersSize - 1
+        nameExist = False
+        For j = 0 To ListLayer.ListCount - 1
+            If layerConfigurations(k).layersOrder(i) = Split(ListLayer.list(j), "*")(0) Then
+                nameExist = True
+                Exit For
+            End If
+        Next j
+        If nameExist = False Then ListLayer.AddItem layerConfigurations(k).layersOrder(i)
+    Next i
+    
+    For i = 0 To ListLayer.ListCount - 1
+        layerConfigurations(k).layersOrder(i) = ListLayer.list(i)
+    Next i
 End Sub
 
 'Save the current configuration to the config.txt and order.txt files for each layer.
@@ -1004,6 +1232,8 @@ Private Sub cmdStart_Click()
 
     Dim graphics As Long
     Dim bitmap As Long
+    Dim graphicsCache As Long
+    Dim bitmapCache As Long
     Dim Image As Long
     Dim imgWidth As Long
     Dim imgHeight As Long
@@ -1011,6 +1241,9 @@ Private Sub cmdStart_Click()
     Dim picWidth As Long
     Dim picHeight As Long
     Dim backgroundColor As Long
+    Dim ColorBTNFACE As Long
+    ColorBTNFACE = CLng("&HFF" & Hex(GetSysColor(15)))
+    
     'Disable hibernation
     SetThreadExecutionState Execution_State.ES_SYSTEM_REQUIRED Or Execution_State.ES_DISPLAY_REQUIRED Or Execution_State.ES_CONTINUOUS
     
@@ -1056,7 +1289,8 @@ Private Sub cmdStart_Click()
                 If IsUnloading Then Exit Sub
                 showTips Language.Item("Tips15") & editionCount - startNumber + 1 & "/" & totalEditions
                 fileName = layerConfigurations(layerConfigIndex).layersOrder(i)
-                If isDnaUnique(fileName) Then
+                If Dir(layersDir & "\" & oneArtFolderName & "\" & fileName) <> "" Then
+                    isDnaUnique fileName
                     FileCopy layersDir & "\" & oneArtFolderName & "\" & fileName, buildDir & "\images\" & editionCount & GetExtensionName(fileName)
                     DrawPng buildDir & "\images\" & editionCount & GetExtensionName(fileName)
                     creatMetadata editionCount, fileName
@@ -1125,9 +1359,15 @@ Private Sub cmdStart_Click()
                     End If
                 Next k
                 SaveImageToPNG bitmap, buildDir & "\images\" & editionCount & ".png"
-                'Preview the generated image
-                picPreview.Cls
-                GdipDrawImageRect picGraphics, bitmap, 0, 0, picWidth, picHeight
+                
+                'Preview the generated image. To solve the problem of picture.cls splash screen, I introduced image caching.
+                CreateBitmapWithGraphics bitmapCache, graphicsCache, imgWidth, imgHeight
+                GdipGraphicsClear graphicsCache, ColorBTNFACE
+                GdipDrawImageRect graphicsCache, bitmap, 0, 0, imgWidth, imgHeight
+                GdipDrawImageRect picGraphics, bitmapCache, 0, 0, picWidth, picHeight
+                GdipDeleteGraphics graphicsCache
+                GdipDisposeImage bitmapCache
+                
                 'Write json file
                 creatMetadata editionCount
                 saveMetadataFile editionCount
@@ -1475,7 +1715,7 @@ Private Function createDNA(ByVal failedCount As Long) As String
         If UBound(skipLayerName) <> 0 Then
             For k = 1 To UBound(skipLayerName)
                 For j = 0 To UBound(layers)
-                    If LCase(layers(j).Name) = LCase(skipLayerName(k)) Then newDNA(j) = -1
+                    If LCase(layers(j).Name) = LCase(skipLayerName(k)) Or LCase(Split(layers(j).Name, nameDelimiter)(0)) = LCase(skipLayerName(k)) Then newDNA(j) = -1
                 Next j
             Next k
         End If
