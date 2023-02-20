@@ -1,45 +1,33 @@
-# HashDNA-Art-Engine
+# HashDNA Art Engine (WIP)
 
+HashDNA is a collection of open-source tools and projects aimed at making NFT development easier and more efficient for artists and developers, even those without any technical expertise.
 
+The HashDNA Art Engine is designed to assist artists in generating 10,000 NFT images based on traits, without requiring any programming knowledge. Inspired by HashLips Art Engine, we offer a user-friendly graphical interface so that no coding is required.
 
- **HashDNA Art Engine v2.1.0**
+Moreover, we provide advanced and highly customizable generation rules that enhance artists' creativity in generating NFT images. We also offer professional features for managing metadata JSON, making it easier for NFT developers to integrate with our tools.
 
- *2023-01-06*
+Quick Demo in 7mins:
 
-This software is designed to help artists generate 10K images
-freely and easily, without programming knowledge. It refers to
-a part of the HashLips art engine code, and the example material
-comes from cryptopunksnotdead, thanks!
+[![Watch the video](https://img.youtube.com/vi/dP9KyMf6CGs/maxresdefault.jpg)](https://youtu.be/dP9KyMf6CGs)
 
-References:
+HashDNA Art Engine Tutorial in Chinese:
 
-   HashDNA Art Engine Demo: https://youtu.be/dP9KyMf6CGs
-   
-   HashDNA Art Engine tutorial(Chinese):https://youtu.be/zt9KcdhBcwk
+<https://youtu.be/zt9KcdhBcwk>
 
-   https://lxdao.io
-   
-   https://github.com/HashLips
-   
-   https://github.com/cryptopunksnotdead
-   
+## How to use it?
 
- By LXDAO
- 
----
+To use HashDNA Art Engine, simply download it from the GitHub release page at https://github.com/lxdao-official/HashDNA-Art-Engine/releases/. At the moment, only support Windows.
 
+## What we are working on?
 
-```
-Copyright 2023 LXDAO
+This project is working in progress. The current version only support Windows, so we are refactoring by using Rust and Electron.
 
-This program is free software: you can redistribute it and/or modify it under the terms of 
-the GNU General Public License as published by the Free Software Foundation, either 
-version 3 of the License, or (at your option) any later version.
+Developers are welcome!
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY 
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
-PARTICULAR PURPOSE. See the GNU General Public License for more details.
+## What is LXDAO?
 
-You should have received a copy of the GNU General Public License along with this 
-program. If not, see <https://www.gnu.org/licenses/>.
-```
+This is a project build in LXDAO. More links: [LXDAO](https://lxdao.io/) | [LXDAO Forum](https://forum.lxdao.io/) | [LXDAO Discord](https://discord.lxdao.io) | [LXDAO Twitter](https://twitter.com/LXDAO_Official).
+
+LXDAO is an R&D-focused DAO in Web3. Our mission is: To bring together buidlers to buidl and maintain valuable projects for Web3, in a sustainable manner.
+
+<a target="_blank" href="https://lxdao.io/"><img alt="Buidl in LXDAO" src="https://github.com/lxdao-official/myfirstnft-frontend/raw/main/public/buildinlxdao.png" width="180" /></a>
