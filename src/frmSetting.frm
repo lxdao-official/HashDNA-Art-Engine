@@ -719,7 +719,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Copyright 2022 LXDAO
+'Copyright 2023 LXDAO
 
 'This file is part of HashDNA Art Eengine.
 '

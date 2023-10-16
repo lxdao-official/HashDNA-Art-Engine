@@ -522,7 +522,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
-'Copyright 2022 LXDAO
+'Copyright 2023 LXDAO
 
 'This file is part of HashDNA Art Eengine.
 '
@@ -540,8 +540,8 @@ Attribute VB_Exposed = False
 
 '********************************************************************
 '
-'                   HashDNA Art Engine v2.1.0
-'                          2022-12-11
+'                   HashDNA Art Engine v2.2.0
+'                          2023-04-03
 '
 '   This software is designed to help artists freely and easily
 '   generate 10K images without programming knowledge. It references
@@ -560,12 +560,13 @@ Option Explicit
 Const oneArtFolderName As String = "1of1" 'lowercase
 Const signSkip As String = "_SKIP_"
 Const signOnly As String = "_ONLY_"
+Const signLink As String = "LINK" 'UCase
 Const rarityDelimiter As String = "#"
 Const nameDelimiter As String = "@"
 Dim config As JsonBag
-Dim layerConfigurations() As layerConfig 'All layers configuration information
-Dim layers() As layer 'All layers infomation in a type
-Dim elements() As element 'All elements information in a layer
+Dim layerConfigurations() As layerConfig 'All layers configuration information, layerConfig <- Public mod
+Dim layers() As layer 'All layers infomation in a type, layer type <- Public mod
+Dim elements() As element 'All elements information in a layer, element type  <- Public mod
 Dim DNA As Collection '
 Dim newDNA() As Long  'Each element number of a DNA
 Dim totalEditions As Long
@@ -581,8 +582,6 @@ Private Enum Execution_State
 End Enum
 Private Declare Sub SetThreadExecutionState Lib "kernel32" (ByVal esFlags As Long)
 Private Declare Function GetSysColor Lib "user32" (ByVal nIndex As Long) As Long
-
-
 
 Private Sub Form_Load()
     Me.Caption = App.Title & " V" & App.Major & "." & App.Minor & "." & App.Revision
@@ -736,7 +735,7 @@ Private Sub reloadDir()
         Exit Sub
     End If
     
-    'Get layers order information:
+    'Get layers information
     For k = 0 To UBound(layerConfigurations)
         foldername = layerConfigurations(k).typeName
         'layer folders or 1/1 files
@@ -1280,8 +1279,10 @@ Private Sub cmdStart_Click()
             showTips Language.Item("Tips14") & " " & layerConfigurations(layerConfigIndex).typeName
             GoTo NextType
         End If
+        
         If ListType.ListCount <> 0 Then ListType.ListIndex = layerConfigIndex
         If ListLayer.ListCount <> 0 Then ListLayer.ListIndex = 0
+        
         'If it's a 1/1 folder, do special processing.
         If LCase(layerConfigurations(layerConfigIndex).typeName) = LCase(oneArtFolderName) Then
             For i = 0 To layerConfigurations(layerConfigIndex).layersSize - 1
@@ -1300,11 +1301,13 @@ Private Sub cmdStart_Click()
             Next i
             GoTo NextType
         End If
+        
         'If all layer folders for this type are empty, skip to the next type.
         If layersSetup(layerConfigIndex) = False Then
             showTips Language.Item("Tips16") & " " & layerConfigurations(layerConfigIndex).typeName
             GoTo NextType
         End If
+        
         'Calculate the maximum number of combinations this type can have, and take the minimum value of it and typeSize.
         maxSize = 1
         For k = 0 To UBound(layers)
@@ -1501,8 +1504,9 @@ Private Sub creatMetadata(ByVal editionCount As Long, Optional ByVal specialFile
     Dim imageBaseURL As String
     Dim extensionName As String
     Dim thisValue As String
+    Dim lastValue As String
     Dim ignoreNONE As Boolean
-    Dim i As Long
+    Dim i As Long, j As Long
     If frmSetting.chkIgnoreNONE.Value = Checked Then ignoreNONE = True Else ignoreNONE = False
     namePrefix = frmSetting.txtNamePrefix.Text & " #"
     imageBaseURL = frmSetting.txtImageBaseURL.Text
@@ -1526,11 +1530,16 @@ Private Sub creatMetadata(ByVal editionCount As Long, Optional ByVal specialFile
             For i = 0 To UBound(newDNA)
                 If newDNA(i) = -1 Then thisValue = "NONE" Else thisValue = layers(i).elements(newDNA(i)).trait_value
                 If Not (UCase(thisValue) = "NONE" And ignoreNONE = True) Then
+                    For j = 0 To i - 1
+                        If newDNA(j) = -1 Then lastValue = "NONE" Else lastValue = layers(j).elements(newDNA(j)).trait_value
+                        If layers(i).trait_type = layers(j).trait_type And thisValue = lastValue Then GoTo NEXTI
+                    Next j
                     With .AddNewObject()
                         .Item("trait_type") = layers(i).trait_type
                         If IsNumeric(thisValue) Then .Item("value") = Val(thisValue) Else .Item("value") = thisValue
                     End With
                 End If
+NEXTI:
             Next i
         End With
     End If
@@ -1547,13 +1556,16 @@ End Sub
 
 'Get the layers configuration infomation of a type, including elements,
 Private Function layersSetup(ByVal layerConfigIndex As Long) As Boolean
+    
     Dim i As Long, j As Long, k As Long, n As Long, maxWeight As Long, maxWeightIndex As Long
     Dim layersOrder() As String
     Dim typeName As String
     Dim tempName As String
+    
     layersOrder = layerConfigurations(layerConfigIndex).layersOrder
     typeName = layerConfigurations(layerConfigIndex).typeName
     k = 0
+    
     For i = 0 To UBound(layersOrder)
         tempName = Split(layersOrder(i), "*")(0)
         'Check the element files in the layer folder.
@@ -1566,6 +1578,7 @@ Private Function layersSetup(ByVal layerConfigIndex As Long) As Boolean
             layers(k).Name = tempName
             layers(k).trait_type = replaceSign(Split(tempName, nameDelimiter)(0))
             If Right(layersOrder(i), 1) = "*" Then layers(k).bypassDNA = True Else layers(k).bypassDNA = False
+            If UCase(Right(Split(layersOrder(i), "*")(0), 4)) = signLink Then layers(k).linkLayer = True Else layers(k).linkLayer = False
             layers(k).elements = elements
             layers(k).totalWeight = 0
             maxWeight = 0
@@ -1586,7 +1599,9 @@ Private Function layersSetup(ByVal layerConfigIndex As Long) As Boolean
             k = k + 1
         End If
     Next i
+    
     If k = 0 Then layersSetup = False Else layersSetup = True
+    
 End Function
 
 'Get all elements infomation of a layer
@@ -1688,8 +1703,15 @@ Private Function createDNA(ByVal failedCount As Long) As String
     thisDNA = ""
     maxTryTimes = Val(frmSetting.txtDnaTryTimes) / 2
     ReDim newDNA(UBound(layers))
+    
+    'Non-LINK layer mark
+    For i = 0 To UBound(newDNA)
+        newDNA(i) = -2
+    Next i
+    
     For i = 0 To UBound(layers)
-        If newDNA(i) = -1 Then GoTo NEXTI
+        'Skip layer or Link layer
+        If newDNA(i) = -1 Or newDNA(i) <> -2 Then GoTo NEXTI
         k = 0
         Do While True
             'number between 0 - totalWeight
@@ -1710,6 +1732,14 @@ Private Function createDNA(ByVal failedCount As Long) As String
             End If
             k = k + 1
         Loop
+        
+        'Link layer
+        If layers(i).linkLayer = True Then
+            For j = i + 1 To UBound(layers)
+                If layers(j).trait_type = layers(i).trait_type Then newDNA(j) = newDNA(i)
+            Next j
+        End If
+        
         'Skip some layers, start from array 1
         skipLayerName() = layers(i).elements(newDNA(i)).skipLayer
         If UBound(skipLayerName) <> 0 Then

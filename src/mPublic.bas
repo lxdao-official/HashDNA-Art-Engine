@@ -1,5 +1,5 @@
 Attribute VB_Name = "Public"
-'Copyright 2022 LXDAO
+'Copyright 2023 LXDAO
 
 'This file is part of HashDNA Art Eengine.
 '
@@ -33,6 +33,7 @@ Type layer
     trait_type As String
     bypassDNA As Boolean
     totalWeight As Long
+    linkLayer As Boolean
     elements() As element
 End Type
 
